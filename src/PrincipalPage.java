@@ -67,7 +67,7 @@ public class PrincipalPage extends javax.swing.JFrame {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/PrincipalPageComponent/src/HOME.png"))); // NOI18N
 
-        jMenu1.setText("Veterinaria");
+        jMenu1.setText("Inicio");
 
         jMenuItem6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/PrincipalPageComponent/src/metodo-de-pago.png"))); // NOI18N
         jMenuItem6.setText("Generar transaccion");
