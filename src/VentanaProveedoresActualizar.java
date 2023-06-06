@@ -19,39 +19,27 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author orozc
  */
-public class VentanaProveedoresRegistrar extends javax.swing.JFrame {
+public class VentanaProveedoresActualizar extends javax.swing.JFrame {
 
     /**
      * Creates new form VentanaProveedores
      */
-    public VentanaProveedoresRegistrar() {
+    public VentanaProveedoresActualizar(Proveedores proveedorUpdate) {
         initComponents();
-        leerProveedores();
-        idProveedor++;
-        txtID.setText(idProveedor + "");
-    }
 
-    private void leerProveedores() {
-        P = (Proveedores[]) controlador.leer("Proveedores", Proveedores.class);
-        Object R[] = new Object[5];
-        for (int i = 0; i < P.length; i++) {
-            if (P[i] == null) {
-                return;
-            }
+        txtID.setText(proveedorUpdate.getID() + "");
+        txtNombre.setText(proveedorUpdate.getNombre());
+        txtRFC.setText(proveedorUpdate.getRFC());
+        txtTel.setText(proveedorUpdate.getTelefono());
+        txtCE.setText(proveedorUpdate.getCorreo());
 
-            idProveedor = P[i].getID();
-
-            pr++;
-        }
-    }
-
-    public int buscarProveedores(int id, Proveedores E[]) {
-        for (int i = 0; i < pr; i++) {
-            if (id == P[i].getID()) {
-                return i;
-            }
-        }
-        return -1;
+        P = new Proveedores(
+                txtNombre.getText(),
+                txtRFC.getText(),
+                txtCE.getText(),
+                txtTel.getText(),
+                Integer.parseInt(txtID.getText())
+        );
     }
 
     /**
@@ -211,76 +199,18 @@ public class VentanaProveedoresRegistrar extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void validarProveedores() throws StringException, IntegerException, IDsException {
-        try {
-            name = txtNombre.getText();
-            if (name.equals("")) {
-                txtNombre.requestFocus();
-                throw new StringException("Falta ingresar el nombre");
-            }
-        } catch (StringException e) {
-            lblNombre.setForeground(Color.red);
-            txtNombre.requestFocus();
-            throw e;
-        }
-        try {
-            RFC = txtRFC.getText().trim().toUpperCase();
-            if (RFC.length() != 12) {
-                throw new StringException("El RFC no tiene 12 digitos");
-            }
-            if (!RFC.matches("[A-Z]{3}[0-9]{6}[A-Z0-9]{3}")) {
-                throw new StringException("El formato no es correcto");
-            }
-        } catch (StringException e) {
-            lblRFC.setForeground(Color.red);
-            txtRFC.requestFocus();
-            throw e;
-        }
-        try {
-            tel = txtTel.getText();
-            if (tel.length() != 10) {
-                throw new IntegerException("La longitud no es correcta");
-            }
-            if (!tel.matches("\\d+")) {
-                throw new IntegerException("Debe tener solo numeros");
-            }
-        } catch (StringException e) {
-            lblTel.setForeground(Color.red);
-            txtTel.requestFocus();
-            throw e;
-        }
-        try {
-            correo = txtCE.getText();
-            if (correo.isEmpty()) {
-                throw new StringException("Falta ingresar el Correo Electronico");
-            }
-            if (!correo.matches("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}")) {
-                throw new StringException("El correo electronico no cumple el formato");
-            }
-        } catch (StringException e) {
-            lblCE.setForeground(Color.red);
-            txtCE.requestFocus();
-            throw e;
-        }
-    }
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        try {
-            validarProveedores();
-            //String Nombre, String RFC, String Correo, String Telefono,int ID
-            P[pr++] = new Proveedores(name, RFC, correo, tel, idProveedor);
+        P = new Proveedores(
+                txtNombre.getText(),
+                txtRFC.getText(),
+                txtCE.getText(),
+                txtTel.getText(),
+                Integer.parseInt(txtID.getText())
+        );
 
-            txtID.setText("");
-            txtNombre.setText("");
-            txtRFC.setText("");
-            txtTel.setText("");
-            txtCE.setText("");
-            controlador.guardar("Proveedores", P);
-            idProveedor++;
-            txtID.setText(idProveedor + "");
-        } catch (IntegerException | NumberFormatException | IDsException | StringException e) {
-            showMessageDialog(this, e.getMessage());
-        }
+        this.dispose();
+
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void txtIDKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIDKeyPressed
@@ -337,12 +267,8 @@ public class VentanaProveedoresRegistrar extends javax.swing.JFrame {
             }
         });
     }
-    private Proveedores P[] = new Proveedores[30];
-    private int pr, ID, pos = -1;
-    private String name, RFC, correo, tel;
+    public Proveedores P = new Proveedores();
 
-    Controller controlador = new Controller();
-    int idProveedor;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;

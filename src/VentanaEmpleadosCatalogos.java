@@ -139,6 +139,11 @@ public class VentanaEmpleadosCatalogos extends javax.swing.JFrame {
                 txtSearchActionPerformed(evt);
             }
         });
+        txtSearch.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtSearchKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -257,7 +262,7 @@ public class VentanaEmpleadosCatalogos extends javax.swing.JFrame {
         if (showConfirmDialog(this, "Se borrará el renglón, ¿proceder?") == 0) {
             m.removeRow(empleadoEDITPOS); // pos, pues es la posicion de la que se habla, se borra en la tabla
 
-            E = controlador.eliminar(E, empleadoEDITPOS);
+            eliminar(empleadoEDITPOS);
             controlador.guardar("Empleados", E); //para guardarlo en el archivo
             //txtID.setText("");
 
@@ -266,6 +271,18 @@ public class VentanaEmpleadosCatalogos extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_btnEliminarActionPerformed
+    public void eliminar(int posicion) {
+
+        // Copiar los elementos antes de la posición
+        System.arraycopy(E, 0, E, 0, posicion);
+
+        // Copiar los elementos después de la posición
+        System.arraycopy(E, posicion + 1, E, posicion, E.length - posicion - 1);
+
+        // Asignar null al último elemento
+        E[E.length - 1] = null;
+
+    }
 
 
     private void btnOrdenarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrdenarActionPerformed
@@ -281,6 +298,13 @@ public class VentanaEmpleadosCatalogos extends javax.swing.JFrame {
         userSelectedID = obtenerIdClienteSeleccionado();
         // TODO add your handling code here:
     }//GEN-LAST:event_tblEmpleadosMouseClicked
+
+    private void txtSearchKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyTyped
+        if (txtSearch.getText().equals("")) {
+            leerEmpleados();
+            return;
+        }         // TODO add your handling code here:
+    }//GEN-LAST:event_txtSearchKeyTyped
 
     private int obtenerIdClienteSeleccionado() {
         // Obtener el índice de la fila seleccionada en la tabla
@@ -378,9 +402,6 @@ public class VentanaEmpleadosCatalogos extends javax.swing.JFrame {
     private int edad, e, su, ID, pos = -1, c;
     private String name, sex, puesto;
     private DefaultTableModel m;
-    private File archivo = new File("EMPLEADOS.VET");
-    private ObjectOutputStream fcs;//flujo de objetos de escritura
-    private ObjectInputStream fce;//flujo de objetos de lectura
 
     Controller controlador = new Controller();
 
