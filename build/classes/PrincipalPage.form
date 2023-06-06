@@ -34,7 +34,7 @@
       <SubComponents>
         <Menu class="javax.swing.JMenu" name="jMenu1">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Inicio"/>
+            <Property name="text" type="java.lang.String" value="Ventas"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem6">
@@ -60,7 +60,7 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenu2">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Veterinaria"/>
+            <Property name="text" type="java.lang.String" value="Administracion"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem4">
@@ -103,12 +103,15 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Catalago de proveedores"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem10ActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenu5">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Compradores"/>
+            <Property name="text" type="java.lang.String" value="Clientes"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem1">
@@ -155,35 +158,6 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Catalago de mascotas"/>
               </Properties>
-            </MenuItem>
-          </SubComponents>
-        </Menu>
-        <Menu class="javax.swing.JMenu" name="jMenu7">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="recursos"/>
-          </Properties>
-          <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem13">
-              <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/PrincipalPageComponent/src/perro (1).png"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Registrar consultorio"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem13ActionPerformed"/>
-              </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem14">
-              <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/PrincipalPageComponent/src/mascotas.png"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Catalago de consultorios"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem14ActionPerformed"/>
-              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
