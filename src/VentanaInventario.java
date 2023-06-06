@@ -10,7 +10,6 @@ import static javax.swing.JOptionPane.showConfirmDialog;
 import static javax.swing.JOptionPane.showMessageDialog;
 import javax.swing.table.DefaultTableModel;
 
-
 /**
  *
  * @author orozc
@@ -22,104 +21,113 @@ public class VentanaInventario extends javax.swing.JFrame {
      */
     public VentanaInventario() {
         initComponents();
-        m=(DefaultTableModel) tblInventario.getModel();
+        m = (DefaultTableModel) tblInventario.getModel();
         leerArticulos();
-        //leerArticulos();
+        leerInventario();
     }
+
     private void leerArticulos() {
-        try {
-            FileInputStream flujoBytes = new FileInputStream("ARTICULOS.VET"); //flujo de Bytes
-            ObjectInputStream fce = new ObjectInputStream(flujoBytes); //flujo de objetos
-            A = (Articulos[]) fce.readObject();
 
-            // Agregar los clientes al combo box
-            for (Articulos articulos : A) {
-                if (articulos == null) {
-                    return; //si el renglon que quiere agregar está vacío, no lo agregará y no marcará error
-                }
-                String item = articulos.getID()+"";
-                jcbID.addItem(item);
-                name=articulos.getNombre();
-                prov=articulos.getProveedor();
+        A = (Articulos[]) controlador.leer("Articulos", Articulos.class); // Agregar los clientes al combo box
+        for (Articulos articulos : A) {
+            if (articulos == null) {
+                return; //si el renglon que quiere agregar está vacío, no lo agregará y no marcará error
             }
-
-        } catch (FileNotFoundException ex) {
-            showMessageDialog(this, "Error el archivo no se encontro");
-        } catch (IOException ex) {
-            showMessageDialog(this, "Error");
-        } catch (ClassNotFoundException ex) {
-            showMessageDialog(this, "Error");
+            String item = articulos.getID() + "";
+            jcbID.addItem(item);
+            name = articulos.getNombre();
+            prov = articulos.getProveedor();
         }
+
     }
-    
-    private void validarID()throws IntegerException,IDsException{
-    try{
-        ID = Integer.parseInt(jcbID.getSelectedItem().toString());
-        if(ID==0){
-            jcbID.requestFocus();
-            throw new IntegerException("Falta ingresar el ID");
+
+    private void leerInventario() {
+        I = (Inventario[]) controlador.leer("Inventario", Inventario.class);
+
+        // Agregar los clientes al combo box
+        for (Inventario articulos : I) {
+            if (articulos == null) {
+                return; //si el renglon que quiere agregar está vacío, no lo agregará y no marcará error
+            }
+            Object O[] = new Object[5];
+            O[0] = articulos.getID();
+            O[1] = articulos.getNombre();
+            O[2] = articulos.getProveedor();
+            O[3] = articulos.getExistencias();
+            O[4] = articulos.getClasificacion();
+            m.addRow(O);
         }
-        if(in!=0){
-            for(int i = 0; i < in; i++) {
-                if(ID==A[i].getID()){
-                throw new IDsException("El ID ingresado ya esta en uso");
+
+    }
+
+    private void validarID() throws IntegerException, IDsException {
+        try {
+            ID = Integer.parseInt(jcbID.getSelectedItem().toString());
+            if (ID == 0) {
+                jcbID.requestFocus();
+                throw new IntegerException("Falta ingresar el ID");
+            }
+            if (in != 0) {
+                for (int i = 0; i < in; i++) {
+                    if (ID == A[i].getID()) {
+                        throw new IDsException("El ID ingresado ya esta en uso");
+                    }
                 }
             }
-        }
-        }catch (IntegerException | NumberFormatException | IDsException e){
+        } catch (IntegerException | NumberFormatException | IDsException e) {
             lblID.setForeground(Color.red);
             jcbID.requestFocus();
             throw e;
         }
     }
-    
-    private void validarInventario()throws StringException,IntegerException,IDsException{
-    try{
-        ex = Integer.parseInt(txtExistencias.getText());
-        if(ex==0){
-            throw new IntegerException("Falta ingresar las existencias");
-        }
-        }catch (IntegerException | NumberFormatException e){
+
+    private void validarInventario() throws StringException, IntegerException, IDsException {
+        try {
+            ex = Integer.parseInt(txtExistencias.getText());
+            if (ex == 0) {
+                throw new IntegerException("Falta ingresar las existencias");
+            }
+        } catch (IntegerException | NumberFormatException e) {
             lblExistencias.setForeground(Color.red);
             txtExistencias.requestFocus();
             throw e;
         }
-        try{
-        cla=jcbClasificacion.getSelectedItem().toString();
-        if(cla.equals("Clasificacion")){
-            throw new StringException("Falta ingresar la clasificacion");
-        }
-        }catch (StringException e){
+        try {
+            cla = jcbClasificacion.getSelectedItem().toString();
+            if (cla.equals("Clasificacion")) {
+                throw new StringException("Falta ingresar la clasificacion");
+            }
+        } catch (StringException e) {
             lblClasificacion.setForeground(Color.red);
             jcbClasificacion.requestFocus();
             throw e;
         }
     }
-    
-    private void OrdenaIDs(){
-        int n=in;
-        for(int p=1;p<n;p++){//pasadas
-            for(int i=0;i<n-p;i++){
-                if(I[i].getID()>I[i+1].getID()){
-                    Inventario inv=new Inventario();
-                    inv=I[i];
-                    I[i]=I[i+1];
-                    I[i+1]=inv;
+
+    private void OrdenaIDs() {
+        int n = in;
+        for (int p = 1; p < n; p++) {//pasadas
+            for (int i = 0; i < n - p; i++) {
+                if (I[i].getID() > I[i + 1].getID()) {
+                    Inventario inv = new Inventario();
+                    inv = I[i];
+                    I[i] = I[i + 1];
+                    I[i + 1] = inv;
                 }//if
             }//for
         }//for
     }
-    
-    public void llenaTabla(){
-        for(int i=0;i<in;i++){
-            m.setValueAt(I[i].getID(),i,0);
-            m.setValueAt(I[i].getNombre(),i,1);
-            m.setValueAt(I[i].getProveedor(),i,2);
-            m.setValueAt(I[i].getExistencias(),i,3);
-            m.setValueAt(I[i].getClasificacion(),i,4);
+
+    public void llenaTabla() {
+        for (int i = 0; i < in; i++) {
+            m.setValueAt(I[i].getID(), i, 0);
+            m.setValueAt(I[i].getNombre(), i, 1);
+            m.setValueAt(I[i].getProveedor(), i, 2);
+            m.setValueAt(I[i].getExistencias(), i, 3);
+            m.setValueAt(I[i].getClasificacion(), i, 4);
         }
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -266,91 +274,91 @@ public class VentanaInventario extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
-    
+
     private void btnOrdenarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrdenarActionPerformed
         OrdenaIDs();
         llenaTabla();
     }//GEN-LAST:event_btnOrdenarActionPerformed
 
-    public int buscarInventario(int id,Inventario I[]){
+    public int buscarInventario(int id, Inventario I[]) {
         for (int i = 0; i < in; i++) {
-            if(id==I[i].getID()){
+            if (id == I[i].getID()) {
                 return i;
             }
         }
         return -1;
     }
-    
+
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        try{
-            int id=Integer.parseInt(jcbID.getSelectedItem().toString());
-        pos=buscarInventario(id,I);
-        if(pos!=-1){
-            jcbID.setSelectedItem(I[pos].getID()+"");
-            txtExistencias.setText(I[pos].getExistencias()+"");
-            jcbClasificacion.setSelectedItem(I[pos].getClasificacion());
-            btnEditar.setEnabled(true);
-            btnEliminar.setEnabled(true);
-        }else{
-            showMessageDialog(this,"Ese Articulo no se encuentra registrada");
-        }
-        }catch(NumberFormatException e){
-            showMessageDialog(this,"Falta ingresar el ID");
+        try {
+            int id = Integer.parseInt(jcbID.getSelectedItem().toString());
+            pos = buscarInventario(id, I);
+            if (pos != -1) {
+                jcbID.setSelectedItem(I[pos].getID() + "");
+                txtExistencias.setText(I[pos].getExistencias() + "");
+                jcbClasificacion.setSelectedItem(I[pos].getClasificacion());
+                btnEditar.setEnabled(true);
+                btnEliminar.setEnabled(true);
+            } else {
+                showMessageDialog(this, "Ese Articulo no se encuentra registrada");
+            }
+        } catch (NumberFormatException e) {
+            showMessageDialog(this, "Falta ingresar el ID");
             lblID.setForeground(Color.red);
             jcbID.requestFocus();
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        try{
+        try {
             validarInventario();
-            ex=Integer.parseInt(txtExistencias.getText());
+            ex = Integer.parseInt(txtExistencias.getText());
             I[pos].setExistencias(ex);
-            m.setValueAt(ex,pos,3);
-            cla=jcbClasificacion.getSelectedItem().toString();
+            m.setValueAt(ex, pos, 3);
+            cla = jcbClasificacion.getSelectedItem().toString();
             I[pos].setProveedor(cla);
-            m.setValueAt(prov,pos,4);
-            controlador.guardar("INVENTARIO",I);
-        }catch(IntegerException | NumberFormatException | IDsException | StringException e){
-            showMessageDialog(this,e.getMessage());
+            m.setValueAt(prov, pos, 4);
+            controlador.guardar("INVENTARIO", I);
+        } catch (IntegerException | NumberFormatException | IDsException | StringException e) {
+            showMessageDialog(this, e.getMessage());
         }
         btnEditar.setEnabled(false);
-        btnEliminar.setEnabled(false);                                            
+        btnEliminar.setEnabled(false);
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
- try{
+        try {
             validarID();
             validarInventario();
             //int Existencias, int ID, String Nombre, String Proveedor, String Clasificacion
-            I[in++]=new Inventario(ex,ID,name,prov,cla);
-            Object O[]=new Object[9];
-            O[0]=ID;
-            O[1]=name;
-            O[2]=prov;
-            O[3]=ex;
-            O[4]=cla;
+            I[in++] = new Inventario(ex, ID, name, prov, cla);
+            Object O[] = new Object[9];
+            O[0] = ID;
+            O[1] = name;
+            O[2] = prov;
+            O[3] = ex;
+            O[4] = cla;
             m.addRow(O);
             jcbID.setSelectedIndex(0);
             txtExistencias.setText("");
             jcbClasificacion.setSelectedIndex(0);
-            controlador.guardar("Inventario",I);
-        }catch (IntegerException | NumberFormatException | IDsException | StringException e){
-            showMessageDialog(this,e.getMessage());
+            controlador.guardar("Inventario", I);
+        } catch (IntegerException | NumberFormatException | IDsException | StringException e) {
+            showMessageDialog(this, e.getMessage());
         }
     }//GEN-LAST:event_btnAgregarActionPerformed
 
+
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        int boton=showConfirmDialog(this,"Seguro que quieres borrar?");
-        if(boton==0){
+        int boton = showConfirmDialog(this, "Seguro que quieres borrar?");
+        if (boton == 0) {
             m.removeRow(pos);
-            I = controlador.eliminar(I,pos);
-                for(int i=pos;i<in;i++){
-                I[i]=I[i+1];
+            I = controlador.eliminar(I, pos);
+            for (int i = pos; i < in; i++) {
+                I[i] = I[i + 1];
                 in--;
             }//for
-            controlador.guardar("INVENTARIO",I);
+            controlador.guardar("INVENTARIO", I);
             jcbID.setSelectedIndex(0);
             txtExistencias.setText("");
             jcbClasificacion.setSelectedIndex(0);
@@ -358,9 +366,6 @@ public class VentanaInventario extends javax.swing.JFrame {
         btnEditar.setEnabled(false);
         btnEliminar.setEnabled(false);
     }//GEN-LAST:event_btnEliminarActionPerformed
-
- 
-        
 
     /**
      * @param args the command line arguments
@@ -397,9 +402,9 @@ public class VentanaInventario extends javax.swing.JFrame {
             }
         });
     }
-    private Inventario I[]=new Inventario[30];
-    private int ID,min,max,pos=-1,in=0,ex=0;
-    private String name,prov,cla;
+    private Inventario I[] = new Inventario[30];
+    private int ID, min, max, pos = -1, in = 0, ex = 0;
+    private String name, prov, cla;
     private DefaultTableModel m;
     private Inventario B[] = new Inventario[30];
     private Articulos A[] = new Articulos[30];

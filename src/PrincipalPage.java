@@ -16,6 +16,8 @@ public class PrincipalPage extends javax.swing.JFrame {
      */
     public PrincipalPage() {
         initComponents();
+        this.setLocationRelativeTo(null);
+
     }
 
     /**
@@ -42,6 +44,8 @@ public class PrincipalPage extends javax.swing.JFrame {
         jMenuItem7 = new javax.swing.JMenuItem();
         jMenuItem9 = new javax.swing.JMenuItem();
         jMenuItem10 = new javax.swing.JMenuItem();
+        jMenuItem13 = new javax.swing.JMenuItem();
+        jMenuItem14 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
@@ -119,6 +123,24 @@ public class PrincipalPage extends javax.swing.JFrame {
         });
         jMenu2.add(jMenuItem10);
 
+        jMenuItem13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/PrincipalPageComponent/src/objetivo.png"))); // NOI18N
+        jMenuItem13.setText("Registrar Articulos");
+        jMenuItem13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem13ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem13);
+
+        jMenuItem14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/PrincipalPageComponent/src/carrito-de-supermercado.png"))); // NOI18N
+        jMenuItem14.setText("Catalogo Articulos");
+        jMenuItem14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem14ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem14);
+
         jMenuBar1.add(jMenu2);
 
         jMenu5.setText("Clientes");
@@ -194,12 +216,15 @@ public class PrincipalPage extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
-VentanaEmpleadosCatalogos frame1 = new VentanaEmpleadosCatalogos();
-frame1.setVisible(true);
+        VentanaEmpleadosCatalogos frame1 = new VentanaEmpleadosCatalogos();
+        frame1.setVisible(true);
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
+
+        VentanaProveedoresRegistrar frame1 = new VentanaProveedoresRegistrar();
+        frame1.setVisible(true);
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem9ActionPerformed
 
@@ -210,8 +235,23 @@ frame1.setVisible(true);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
+
+        VentanaProveedoresCatalogo frame1 = new VentanaProveedoresCatalogo();
+        frame1.setVisible(true);
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem10ActionPerformed
+
+    private void jMenuItem13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem13ActionPerformed
+        VentanaArticulosRegistrar frame1 = new VentanaArticulosRegistrar();
+        frame1.setVisible(true);
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem13ActionPerformed
+
+    private void jMenuItem14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem14ActionPerformed
+        VentanaArticulosCatalogo frame1 = new VentanaArticulosCatalogo();
+        frame1.setVisible(true);
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem14ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -265,6 +305,8 @@ frame1.setVisible(true);
     private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem12;
+    private javax.swing.JMenuItem jMenuItem13;
+    private javax.swing.JMenuItem jMenuItem14;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
