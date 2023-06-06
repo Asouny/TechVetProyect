@@ -28,6 +28,8 @@ public class VentanaClientesRegistrar extends javax.swing.JFrame {
         id++;
         txtID.setText(id + "");
         txtNombre.requestFocus();
+                this.setLocationRelativeTo(null);
+
     }
 
     /**

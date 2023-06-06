@@ -22,7 +22,8 @@ public class VentanaPagoRegistrar extends javax.swing.JFrame {
         leerPagos();
         leerClientes();
         id++;
-        txtID.setText(id + "");
+        txtID.setText(id + "");        this.setLocationRelativeTo(null);
+
     }
 
     /**
@@ -51,7 +52,7 @@ public class VentanaPagoRegistrar extends javax.swing.JFrame {
         jcbMetodo = new javax.swing.JComboBox<>();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         lblNombre.setText("Método de pago:");
 

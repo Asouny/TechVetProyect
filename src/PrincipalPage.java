@@ -17,7 +17,7 @@ public class PrincipalPage extends javax.swing.JFrame {
     public PrincipalPage() {
         initComponents();
         this.setLocationRelativeTo(null);
-
+        
     }
 
     /**
@@ -80,7 +80,12 @@ public class PrincipalPage extends javax.swing.JFrame {
         jMenu1.add(jMenuItem6);
 
         jMenuItem12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/PrincipalPageComponent/src/ventas.png"))); // NOI18N
-        jMenuItem12.setText("Catalogo de transacciones");
+        jMenuItem12.setText("Catalogo de pagos");
+        jMenuItem12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem12ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem12);
 
         jMenuBar1.add(jMenu1);
@@ -210,7 +215,7 @@ public class PrincipalPage extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-
+        
         VentanaClientesRegistrar frame = new VentanaClientesRegistrar();
         frame.setVisible(true);
         // TODO add your handling code here:
@@ -222,7 +227,9 @@ public class PrincipalPage extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
-        // TODO add your handling code here:
+        VentanaPagoRegistrar frame1 = new VentanaPagoRegistrar();
+        frame1.setVisible(true);
+// TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
@@ -232,7 +239,7 @@ public class PrincipalPage extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
-
+        
         VentanaProveedoresRegistrar frame1 = new VentanaProveedoresRegistrar();
         frame1.setVisible(true);
         // TODO add your handling code here:
@@ -245,7 +252,7 @@ public class PrincipalPage extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
-
+        
         VentanaProveedoresCatalogo frame1 = new VentanaProveedoresCatalogo();
         frame1.setVisible(true);
         // TODO add your handling code here:
@@ -269,10 +276,16 @@ public class PrincipalPage extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-
+        
         VentanaMascotasRegistrar frame1 = new VentanaMascotasRegistrar();
         frame1.setVisible(true);// TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void jMenuItem12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem12ActionPerformed
+        VentanaPagoCatalogo frame1 = new VentanaPagoCatalogo();
+        frame1.setVisible(true);
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem12ActionPerformed
 
     /**
      * @param args the command line arguments

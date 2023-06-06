@@ -28,6 +28,7 @@ public class VentanaArticulosRegistrar extends javax.swing.JFrame {
         initComponents();
         leerProveedores();
         leerArticulos();
+        this.setLocationRelativeTo(null);
 
         articuloID++;
         txtID.setText(articuloID + "");

@@ -29,6 +29,8 @@ public class VentanaProveedoresRegistrar extends javax.swing.JFrame {
         leerProveedores();
         idProveedor++;
         txtID.setText(idProveedor + "");
+                this.setLocationRelativeTo(null);
+
     }
 
     private void leerProveedores() {

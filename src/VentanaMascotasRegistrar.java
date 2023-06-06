@@ -22,7 +22,8 @@ public class VentanaMascotasRegistrar extends javax.swing.JFrame {
         initComponents();
         leerClientes();
         leerMascotas();
-        id++;
+        id++;        this.setLocationRelativeTo(null);
+
     }
 
     /**

@@ -29,6 +29,8 @@ public class VentanaClientesCatalogo extends javax.swing.JFrame {
         m = (DefaultTableModel) tblClientes.getModel();
         leerClientes();
         id++;
+                this.setLocationRelativeTo(null);
+
     }
 
     /**

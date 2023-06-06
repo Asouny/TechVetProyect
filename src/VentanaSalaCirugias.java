@@ -9,6 +9,8 @@ public class VentanaSalaCirugias extends javax.swing.JFrame {
     public VentanaSalaCirugias() {
         initComponents();
         modelo = (DefaultTableModel) tblTabla.getModel();
+                this.setLocationRelativeTo(null);
+
     }
 
     /**

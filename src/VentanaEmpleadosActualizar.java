@@ -28,6 +28,7 @@ public class VentanaEmpleadosActualizar extends javax.swing.JFrame {
      */
     public VentanaEmpleadosActualizar(Empleado empleadoUpdate) {
         initComponents();
+        this.setLocationRelativeTo(null);
 
         txtNombre.setText(empleadoUpdate.getNombre());
         jcbPuesto.setSelectedItem(empleadoUpdate.getPuesto());

@@ -23,7 +23,8 @@ public class VentanaInventario extends javax.swing.JFrame {
         initComponents();
         m = (DefaultTableModel) tblInventario.getModel();
         leerArticulos();
-        leerInventario();
+        leerInventario();        this.setLocationRelativeTo(null);
+
     }
 
     private void leerArticulos() {

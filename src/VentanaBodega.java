@@ -32,7 +32,8 @@ public class VentanaBodega extends javax.swing.JFrame {
         initComponents();
         model = (DefaultComboBoxModel<String>) jcbSecciones.getModel();
         m=(DefaultTableModel) tblBodega.getModel();
-        leerBodega();
+        leerBodega();        this.setLocationRelativeTo(null);
+
     }
     
     private void leerBodega(){

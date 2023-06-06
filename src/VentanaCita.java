@@ -11,7 +11,8 @@ public class VentanaCita extends javax.swing.JFrame {
      */
     public VentanaCita() {
         initComponents();
-        
+                this.setLocationRelativeTo(null);
+
     }
     
     

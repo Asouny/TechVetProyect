@@ -8,7 +8,8 @@ public class VentanaProcedimiento extends javax.swing.JFrame {
     private DefaultTableModel modelo;
     public VentanaProcedimiento() {
         initComponents();
-        modelo = (DefaultTableModel) tblTabla.getModel();
+        modelo = (DefaultTableModel) tblTabla.getModel();        this.setLocationRelativeTo(null);
+
     }
 
     /**

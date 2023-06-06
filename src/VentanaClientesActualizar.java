@@ -24,6 +24,7 @@ public class VentanaClientesActualizar extends javax.swing.JFrame {
      */
     public VentanaClientesActualizar(Cliente clienteUpdate) {
         initComponents();
+        this.setLocationRelativeTo(null);
 
         txtID.setText(clienteUpdate.getId() + "");
         txtNombre.setText(clienteUpdate.getNombre());

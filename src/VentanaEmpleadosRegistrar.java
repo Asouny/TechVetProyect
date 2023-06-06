@@ -30,7 +30,8 @@ public class VentanaEmpleadosRegistrar extends javax.swing.JFrame {
         initComponents();
         leerEmpleados();
         id++;
-        txtID.setText(id + "");
+        txtID.setText(id + "");        this.setLocationRelativeTo(null);
+
     }
 
     private void leerEmpleados() {

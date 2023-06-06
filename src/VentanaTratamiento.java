@@ -8,7 +8,8 @@ public class VentanaTratamiento extends javax.swing.JFrame {
     private DefaultTableModel modeloTabla;
     public VentanaTratamiento() {
         initComponents();
-         modeloTabla = (DefaultTableModel) tblTabla.getModel();
+         modeloTabla = (DefaultTableModel) tblTabla.getModel();        this.setLocationRelativeTo(null);
+
     }
 
     @SuppressWarnings("unchecked")

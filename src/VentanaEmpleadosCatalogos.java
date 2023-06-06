@@ -31,7 +31,8 @@ public class VentanaEmpleadosCatalogos extends javax.swing.JFrame {
     public VentanaEmpleadosCatalogos() {
         initComponents();
         m = (DefaultTableModel) tblEmpleados.getModel();
-        leerEmpleados();
+        leerEmpleados();        this.setLocationRelativeTo(null);
+
     }
 
     private void leerEmpleados() {

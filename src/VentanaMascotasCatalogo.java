@@ -22,7 +22,8 @@ public class VentanaMascotasCatalogo extends javax.swing.JFrame {
         initComponents();
         m = (DefaultTableModel) tblMascotas.getModel();
         leerMascotas();
-        id++;
+        id++;        this.setLocationRelativeTo(null);
+
     }
 
     /**

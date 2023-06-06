@@ -26,7 +26,8 @@ public class VentanaDiagnostico extends javax.swing.JFrame {
     public VentanaDiagnostico() {
         initComponents();
         m = (DefaultTableModel) tblDiagnosticos.getModel();
-        leerDiagnosticos();
+        leerDiagnosticos();        this.setLocationRelativeTo(null);
+
     }
 
     /**

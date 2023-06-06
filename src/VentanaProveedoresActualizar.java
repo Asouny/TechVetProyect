@@ -26,6 +26,7 @@ public class VentanaProveedoresActualizar extends javax.swing.JFrame {
      */
     public VentanaProveedoresActualizar(Proveedores proveedorUpdate) {
         initComponents();
+        this.setLocationRelativeTo(null);
 
         txtID.setText(proveedorUpdate.getID() + "");
         txtNombre.setText(proveedorUpdate.getNombre());

@@ -14,6 +14,8 @@ public class VentanaVeterinaria extends javax.swing.JFrame {
      */
     public VentanaVeterinaria() {
         initComponents();
+                this.setLocationRelativeTo(null);
+
     }
 
     /**

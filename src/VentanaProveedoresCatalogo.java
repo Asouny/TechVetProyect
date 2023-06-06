@@ -29,7 +29,8 @@ public class VentanaProveedoresCatalogo extends javax.swing.JFrame {
     public VentanaProveedoresCatalogo() {
         initComponents();
         m = (DefaultTableModel) tblProveedores.getModel();
-        leerProveedores();
+        leerProveedores();        this.setLocationRelativeTo(null);
+
     }
 
     private void leerProveedores() {

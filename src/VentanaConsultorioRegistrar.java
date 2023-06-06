@@ -23,7 +23,8 @@ public class VentanaConsultorioRegistrar extends javax.swing.JFrame {
      */
     public VentanaConsultorioRegistrar() {
         initComponents();
-        
+                this.setLocationRelativeTo(null);
+
         leerConsultorios();
         id++;
         txtID.setText(id + "");

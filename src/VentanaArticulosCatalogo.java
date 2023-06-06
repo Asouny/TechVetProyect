@@ -30,6 +30,8 @@ public class VentanaArticulosCatalogo extends javax.swing.JFrame {
         initComponents();
         m=(DefaultTableModel) tblArticulos.getModel();
         leerArticulos();
+                this.setLocationRelativeTo(null);
+
     }
     
     private void leerArticulos(){

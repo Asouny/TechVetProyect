@@ -71,6 +71,7 @@ public class VentanaPagoCatalogo extends javax.swing.JFrame {
     
         public int buscaCliente(int ca, Cliente A[]) {
         for (int i = 0; i < A.length; i++) {
+            if(C[i]==null){return -1;}
             if (ca == C[i].getId()) {
                 if (C[i] == null) {
                     return -1; //si el renglon que quiere agregar está vacío, no lo agregará y no marcará error
@@ -104,7 +105,7 @@ public class VentanaPagoCatalogo extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblPagos = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
         jLabel1.setText("Catalogo de Pagos");

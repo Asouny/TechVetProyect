@@ -28,6 +28,8 @@ public class VentanaConsultorioCatalogo extends javax.swing.JFrame {
         m = (DefaultTableModel) tblConsultorios.getModel();
         leerConsultorios();
         id++;
+                this.setLocationRelativeTo(null);
+
     }
 
     /**
