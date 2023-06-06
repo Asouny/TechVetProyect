@@ -13,13 +13,16 @@ import java.io.Serializable;
  * @author orozc
  */
 public class Inventario implements Serializable{
-    private int Existencias;
-    private String Clasificacion;
+    private int Existencias,ID;
+    private String Nombre,Proveedor,Clasificacion;
     public Inventario() {
     }
 
-    public Inventario(int Existencias, String Clasificacion) {
+    public Inventario(int Existencias, int ID, String Nombre, String Proveedor, String Clasificacion) {
         this.Existencias = Existencias;
+        this.ID = ID;
+        this.Nombre = Nombre;
+        this.Proveedor = Proveedor;
         this.Clasificacion = Clasificacion;
     }
 
@@ -29,6 +32,30 @@ public class Inventario implements Serializable{
 
     public void setExistencias(int Existencias) {
         this.Existencias = Existencias;
+    }
+
+    public int getID() {
+        return ID;
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
+    }
+
+    public String getNombre() {
+        return Nombre;
+    }
+
+    public void setNombre(String Nombre) {
+        this.Nombre = Nombre;
+    }
+
+    public String getProveedor() {
+        return Proveedor;
+    }
+
+    public void setProveedor(String Proveedor) {
+        this.Proveedor = Proveedor;
     }
 
     public String getClasificacion() {

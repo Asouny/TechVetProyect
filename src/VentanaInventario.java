@@ -25,9 +25,17 @@ public class VentanaInventario extends javax.swing.JFrame {
     public VentanaInventario() {
         initComponents();
         m=(DefaultTableModel) tblInventario.getModel();
+        leerArticulos();
         //leerArticulos();
     }
-    
+    public int buscarArticulo(int id,Articulos A[]){
+        for (int i = 0; i < a; i++) {
+            if(id==I[i].getID()){
+                return i;
+            }
+        }
+        return -1;
+    }
     
     
     /**
