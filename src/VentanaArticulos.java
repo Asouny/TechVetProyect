@@ -334,12 +334,12 @@ public class VentanaArticulos extends javax.swing.JFrame {
             validarArticulos();
             //String Nombre, String Descripcion, String Proveedor, int ID, double precio
             A[a++]=new Articulos(name,desc,prov,ID,precio);
-            Object O[]=new Object[9];
+            Object O[]=new Object[5];
             O[0]=ID;
             O[1]=name;
             O[2]=desc;
             O[3]=precio;
-            O[8]=prov;
+            O[4]=prov;
             m.addRow(O);
             txtID.setText("");
             txtNombre.setText("");
@@ -385,6 +385,7 @@ public class VentanaArticulos extends javax.swing.JFrame {
             precio=Double.parseDouble(txtPrecio.getText());
             A[pos].setPrecio(precio);
             m.setValueAt(precio,pos,3);
+            prov=jcbProveedor.getSelectedItem().toString();
             A[pos].setProveedor(prov);
             m.setValueAt(prov,pos,4);
             guardarArray();
