@@ -169,10 +169,20 @@ public class PrincipalPage extends javax.swing.JFrame {
 
         jMenuItem5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/PrincipalPageComponent/src/perro (1).png"))); // NOI18N
         jMenuItem5.setText("Registrar mascota");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
         jMenu6.add(jMenuItem5);
 
         jMenuItem8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/PrincipalPageComponent/src/mascotas.png"))); // NOI18N
         jMenuItem8.setText("Catalago de mascotas");
+        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem8ActionPerformed(evt);
+            }
+        });
         jMenu6.add(jMenuItem8);
 
         jMenuBar1.add(jMenu6);
@@ -252,6 +262,17 @@ public class PrincipalPage extends javax.swing.JFrame {
         frame1.setVisible(true);
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem14ActionPerformed
+
+    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+        VentanaMascotasCatalogo frame1 = new VentanaMascotasCatalogo();
+        frame1.setVisible(true);// TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem8ActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+
+        VentanaMascotasRegistrar frame1 = new VentanaMascotasRegistrar();
+        frame1.setVisible(true);// TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     /**
      * @param args the command line arguments
