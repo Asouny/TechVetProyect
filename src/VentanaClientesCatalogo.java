@@ -354,6 +354,9 @@ public class VentanaClientesCatalogo extends javax.swing.JFrame {
 
     public int buscaCliente(int ca, Cliente A[]) {
         for (int i = 0; i < A.length; i++) {
+            if(A[i]== null){
+                return -1;
+            }
             if (ca == C[i].getId()) {
                 if (C[i] == null) {
                     return -1; //si el renglon que quiere agregar está vacío, no lo agregará y no marcará error

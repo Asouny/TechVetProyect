@@ -261,8 +261,8 @@ public class VentanaClientesRegistrar extends javax.swing.JFrame {
             }
 
             C[c++] = new Cliente(id, name, sex, edad, mascu);
-            
-            guardarArray();
+
+            controlador.guardar("Clientes", C);
             txtNombre.setText("");
             txtNombre1.setText("");
             txtEdad.setText("");
@@ -271,8 +271,6 @@ public class VentanaClientesRegistrar extends javax.swing.JFrame {
             txtID.setText(id + "");
         }
     }//GEN-LAST:event_btnAgregarActionPerformed
-
-
 
     private void ordenaNombre() {
         int n = c; //a: numero de alumnos en el arreglo
@@ -320,44 +318,19 @@ public class VentanaClientesRegistrar extends javax.swing.JFrame {
         }
     }
 
-    private void guardarArray() {
-
-        try {
-            //se abre el flujo y se manda el metodo para guardar
-            FileOutputStream flujoBytes = new FileOutputStream("Clientes.obj");
-            fcs = new ObjectOutputStream(flujoBytes);
-            fcs.writeObject(C);
-            fcs.flush();
-            showMessageDialog(this, "Cliente registrado con exito");
-
-        } catch (IOException ex) {
-            showMessageDialog(this, "Error");
-        }
-
-    }
-
     private void leerClientes() {
-        try {
-            FileInputStream flujoBytes = new FileInputStream("Clientes.obj"); //flujo de Bytes
-            fce = new ObjectInputStream(flujoBytes); //flujo de objetos
-            C = (Cliente[]) fce.readObject();
-            Object R[] = new Object[5];
-            //ciclo que si se cumple, manda a agregar a la tabla para cuando inicie el programa de nuevo
-            for (int i = 0; i < C.length; i++) {
-                if (C[i] == null) {
-                    return; //si el renglon que quiere agregar está vacío, no lo agregará y no marcará error
-                }
-                id = C[i].getId();
-                c++;
+        C =  controlador.leer("Clientes", Cliente.class);
+        
+        Object R[] = new Object[5];
+        //ciclo que si se cumple, manda a agregar a la tabla para cuando inicie el programa de nuevo
+        for (int i = 0; i < C.length; i++) {
+            if (C[i] == null) {
+                return; //si el renglon que quiere agregar está vacío, no lo agregará y no marcará error
             }
-
-        } catch (FileNotFoundException ex) {
-            showMessageDialog(this, "Error el archivo no se encontro");
-        } catch (IOException ex) {
-            showMessageDialog(this, "Error");
-        } catch (ClassNotFoundException ex) {
-            showMessageDialog(this, "Error");
+            id = C[i].getId();
+            c++;
         }
+
     }
 
     public int buscaCliente(int ca, Cliente A[]) {
@@ -417,9 +390,7 @@ public class VentanaClientesRegistrar extends javax.swing.JFrame {
     private int pos = -1;
     private String name, sex;
 
-    //nuevos agregados con lo de archivos
-    private ObjectOutputStream fcs; // flujo de objetos de escritura
-    private ObjectInputStream fce; //flujo de objetos de lectura
+    Controller controlador = new Controller();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
     private javax.swing.JLabel jLabel1;

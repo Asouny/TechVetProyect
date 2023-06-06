@@ -257,7 +257,7 @@ public class VentanaConsultorioRegistrar extends javax.swing.JFrame {
             System.out.println(new Consultorio(eq, capac, id, dispon).toString());
 
             //m.addRow(O);
-            guardarArray();
+            controlador.guardar("Consultorios", Con);
             id++;
             txtID.setText(id+"");
             txtCapacidad.setText("");
@@ -266,27 +266,10 @@ public class VentanaConsultorioRegistrar extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnAgregarActionPerformed
 
-      private void guardarArray() {
 
-        try {
-            //se abre el flujo y se manda el metodo para guardar
-            FileOutputStream flujoBytes = new FileOutputStream("Consultorios.obj");
-            fcs = new ObjectOutputStream(flujoBytes);
-            fcs.writeObject(Con);
-            fcs.flush();
-            showMessageDialog(this, "Consultorio registrado con exito");
-
-        } catch (IOException ex) {
-            showMessageDialog(this, "Error");
-        }
-
-    }
       
     private void leerConsultorios() {
-        try {
-            FileInputStream flujoBytes = new FileInputStream("Consultorios.obj"); //flujo de Bytes
-            fce = new ObjectInputStream(flujoBytes); //flujo de objetos
-            Con = (Consultorio[]) fce.readObject();
+            Con = controlador.leer("Consultorios", Consultorio.class);
             //ciclo que si se cumple, manda a agregar a la tabla para cuando inicie el programa 
             for (int i = 0; i < Con.length; i++) {
                 if (Con[i] == null) {
@@ -296,13 +279,6 @@ public class VentanaConsultorioRegistrar extends javax.swing.JFrame {
                 c++;
             }
 
-        } catch (FileNotFoundException ex) {
-            showMessageDialog(this, "Error el archivo no se encontro");
-        } catch (IOException ex) {
-            showMessageDialog(this, "Error");
-        } catch (ClassNotFoundException ex) {
-            showMessageDialog(this, "Error");
-        }
     }
 
     public int buscaConsultorio(int ca, Consultorio C[]) {
@@ -360,6 +336,9 @@ public class VentanaConsultorioRegistrar extends javax.swing.JFrame {
     //nuevos agregados con lo de archivos
     private ObjectOutputStream fcs; // flujo de objetos de escritura
     private ObjectInputStream fce; //
+    
+    
+    Controller controlador = new Controller();
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;

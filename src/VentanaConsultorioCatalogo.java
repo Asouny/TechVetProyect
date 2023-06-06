@@ -175,7 +175,7 @@ public class VentanaConsultorioCatalogo extends javax.swing.JFrame {
         if (showConfirmDialog(this, "Se borrará el renglón, ¿proceder?") == 0) {
             m.removeRow(consultorioEDITPOS); // pos, pues es la posicion de la que se habla, se borra en la tabla
             eliminarCliente(consultorioEDITPOS);
-            guardarArray(); //para guardarlo en el archivo
+            controlador.guardar("Consultorio", Con); //para guardarlo en el archivo
             //txtID.setText("");
 
             btnEditar.setEnabled(false);
@@ -231,7 +231,7 @@ public class VentanaConsultorioCatalogo extends javax.swing.JFrame {
                 // Aquí puedes colocar el código que deseas ejecutar
 
                 Con[consultorioEDITPOS] = frame1.Con;
-                guardarArray();
+                controlador.guardar("Consultorios", Con);
                 leerConsultorios();
             }
         });
@@ -269,27 +269,14 @@ public class VentanaConsultorioCatalogo extends javax.swing.JFrame {
      private void tblConsultorioMouseClicked(java.awt.event.MouseEvent evt) {                                         
         userSelectedID = obtenerIdConsultorioSeleccionado();
      }
-     private void guardarArray() {
+     
 
-        try {
-            //se abre el flujo y se manda el metodo para guardar
-            FileOutputStream flujoBytes = new FileOutputStream("Consultorios.obj");
-            fcs = new ObjectOutputStream(flujoBytes);
-            fcs.writeObject(Con);
-            fcs.flush();
-        } catch (IOException ex) {
-            showMessageDialog(this, "Error");
-        }
-
-    }
 
     private void leerConsultorios() {
-        try {
-            FileInputStream flujoBytes = new FileInputStream("Consultorios.obj"); //flujo de Bytes
-            fce = new ObjectInputStream(flujoBytes); //flujo de objetos
-            Con = (Consultorio[]) fce.readObject();
+            
+            Con = (Consultorio[]) controlador.leer("Consultorios", Consultorio.class);
             Object R[] = new Object[4];
-                        m.setRowCount(0);
+            m.setRowCount(0);
 
             //ciclo que si se cumple, manda a agregar a la tabla para cuando inicie el programa 
             for (int i = 0; i < Con.length; i++) {
@@ -304,14 +291,7 @@ public class VentanaConsultorioCatalogo extends javax.swing.JFrame {
                 m.addRow(R);
                 c++;
             }
-
-        } catch (FileNotFoundException ex) {
-            showMessageDialog(this, "Error el archivo no se encontro");
-        } catch (IOException ex) {
-            showMessageDialog(this, "Error");
-        } catch (ClassNotFoundException ex) {
-            showMessageDialog(this, "Error");
-        }
+        
     }
 
     public int buscaConsultorio(int ca, Consultorio C[]) {
@@ -401,10 +381,8 @@ public class VentanaConsultorioCatalogo extends javax.swing.JFrame {
     private DefaultTableModel m;
     private int id;
 private int userSelectedID;
-    //nuevos agregados con lo de archivos
-    private ObjectOutputStream fcs; // flujo de objetos de escritura
-    private ObjectInputStream fce; //
 
+Controller controlador = new Controller();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnEditar;
