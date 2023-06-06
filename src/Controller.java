@@ -78,6 +78,7 @@ public class Controller {
         return data;
     }
 
+
     //nuevos agregados con lo de archivos
     private ObjectOutputStream fcs; // flujo de objetos de escritura
     private ObjectInputStream fce; //flujo de objetos de lectura
