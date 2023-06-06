@@ -1,13 +1,11 @@
 
 import java.awt.Color;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import static javax.swing.JOptionPane.showMessageDialog;
 import static javax.swing.JOptionPane.showConfirmDialog;
 import static javax.swing.JOptionPane.showMessageDialog;
 import javax.swing.table.DefaultTableModel;
@@ -25,10 +23,102 @@ public class VentanaInventario extends javax.swing.JFrame {
     public VentanaInventario() {
         initComponents();
         m=(DefaultTableModel) tblInventario.getModel();
+        leerArticulos();
         //leerArticulos();
     }
+    private void leerArticulos() {
+        try {
+            FileInputStream flujoBytes = new FileInputStream("ARTICULOS.VET"); //flujo de Bytes
+            ObjectInputStream fce = new ObjectInputStream(flujoBytes); //flujo de objetos
+            A = (Articulos[]) fce.readObject();
+
+            // Agregar los clientes al combo box
+            for (Articulos articulos : A) {
+                if (articulos == null) {
+                    return; //si el renglon que quiere agregar está vacío, no lo agregará y no marcará error
+                }
+                String item = articulos.getID()+"";
+                jcbID.addItem(item);
+                name=articulos.getNombre();
+                prov=articulos.getProveedor();
+            }
+
+        } catch (FileNotFoundException ex) {
+            showMessageDialog(this, "Error el archivo no se encontro");
+        } catch (IOException ex) {
+            showMessageDialog(this, "Error");
+        } catch (ClassNotFoundException ex) {
+            showMessageDialog(this, "Error");
+        }
+    }
     
+    private void validarID()throws IntegerException,IDsException{
+    try{
+        ID = Integer.parseInt(jcbID.getSelectedItem().toString());
+        if(ID==0){
+            jcbID.requestFocus();
+            throw new IntegerException("Falta ingresar el ID");
+        }
+        if(in!=0){
+            for(int i = 0; i < in; i++) {
+                if(ID==A[i].getID()){
+                throw new IDsException("El ID ingresado ya esta en uso");
+                }
+            }
+        }
+        }catch (IntegerException | NumberFormatException | IDsException e){
+            lblID.setForeground(Color.red);
+            jcbID.requestFocus();
+            throw e;
+        }
+    }
     
+    private void validarInventario()throws StringException,IntegerException,IDsException{
+    try{
+        ex = Integer.parseInt(txtExistencias.getText());
+        if(ex==0){
+            throw new IntegerException("Falta ingresar las existencias");
+        }
+        }catch (IntegerException | NumberFormatException e){
+            lblExistencias.setForeground(Color.red);
+            txtExistencias.requestFocus();
+            throw e;
+        }
+        try{
+        cla=jcbClasificacion.getSelectedItem().toString();
+        if(cla.equals("Clasificacion")){
+            throw new StringException("Falta ingresar la clasificacion");
+        }
+        }catch (StringException e){
+            lblClasificacion.setForeground(Color.red);
+            jcbClasificacion.requestFocus();
+            throw e;
+        }
+    }
+    
+    private void OrdenaIDs(){
+        int n=in;
+        for(int p=1;p<n;p++){//pasadas
+            for(int i=0;i<n-p;i++){
+                if(I[i].getID()>I[i+1].getID()){
+                    Inventario inv=new Inventario();
+                    inv=I[i];
+                    I[i]=I[i+1];
+                    I[i+1]=inv;
+                }//if
+            }//for
+        }//for
+    }
+    
+    public void llenaTabla(){
+        for(int i=0;i<in;i++){
+            m.setValueAt(I[i].getID(),i,0);
+            m.setValueAt(I[i].getNombre(),i,1);
+            m.setValueAt(I[i].getProveedor(),i,2);
+            m.setValueAt(I[i].getExistencias(),i,3);
+            m.setValueAt(I[i].getClasificacion(),i,4);
+        }
+    }
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -47,7 +137,7 @@ public class VentanaInventario extends javax.swing.JFrame {
         btnAgregar = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblInventario = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
+        lblID = new javax.swing.JLabel();
         lblExistencias = new javax.swing.JLabel();
         txtExistencias = new javax.swing.JTextField();
         lblClasificacion = new javax.swing.JLabel();
@@ -74,11 +164,6 @@ public class VentanaInventario extends javax.swing.JFrame {
 
         btnEliminar.setText("Eliminar");
         btnEliminar.setEnabled(false);
-        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEliminarActionPerformed(evt);
-            }
-        });
 
         btnEditar.setText("Editar");
         btnEditar.setEnabled(false);
@@ -105,7 +190,7 @@ public class VentanaInventario extends javax.swing.JFrame {
         ));
         jScrollPane2.setViewportView(tblInventario);
 
-        jLabel1.setText("ID Articulos:");
+        lblID.setText("ID Articulos:");
 
         lblExistencias.setText("Existencias:");
 
@@ -136,7 +221,7 @@ public class VentanaInventario extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnOrdenar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
+                                .addComponent(lblID)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jcbID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -155,7 +240,7 @@ public class VentanaInventario extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
+                    .addComponent(lblID)
                     .addComponent(txtExistencias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblExistencias)
                     .addComponent(lblClasificacion)
@@ -182,22 +267,88 @@ public class VentanaInventario extends javax.swing.JFrame {
     
     }//GEN-LAST:event_btnOrdenarActionPerformed
 
-    
+    public int buscarInventario(int id,Inventario I[]){
+        for (int i = 0; i < in; i++) {
+            if(id==I[i].getID()){
+                return i;
+            }
+        }
+        return -1;
+    }
     
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-
+        try{
+            int id=Integer.parseInt(jcbID.getSelectedItem().toString());
+        pos=buscarInventario(id,I);
+        if(pos!=-1){
+            jcbID.setSelectedItem(I[pos].getID()+"");
+            txtExistencias.setText(I[pos].getExistencias()+"");
+            jcbClasificacion.setSelectedItem(I[pos].getClasificacion());
+            btnEditar.setEnabled(true);
+            btnEliminar.setEnabled(true);
+        }else{
+            showMessageDialog(this,"Ese Articulo no se encuentra registrada");
+        }
+        }catch(NumberFormatException e){
+            showMessageDialog(this,"Falta ingresar el ID");
+            lblID.setForeground(Color.red);
+            jcbID.requestFocus();
+        }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
-    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-  
-    }//GEN-LAST:event_btnEliminarActionPerformed
-
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        try{
+            validarInventario();
+            ex=Integer.parseInt(txtExistencias.getText());
+            I[pos].setExistencias(ex);
+            m.setValueAt(ex,pos,3);
+            cla=jcbClasificacion.getSelectedItem().toString();
+            I[pos].setProveedor(cla);
+            m.setValueAt(prov,pos,4);
+            controlador.guardar("INVENTARIO",I);
+        }catch(IntegerException | NumberFormatException | IDsException | StringException e){
+            showMessageDialog(this,e.getMessage());
+        }
+        btnEditar.setEnabled(false);
+        btnEliminar.setEnabled(false);
+    }                                         
 
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {                                            
+        int boton=showConfirmDialog(this,"Seguro que quieres borrar?");
+        if(boton==0){
+            m.removeRow(pos);
+            for(int i=pos;i<in;i++){
+                I[i]=I[i+1];
+                in--;
+            }//for
+            controlador.guardar("INVENTARIO",I);
+            jcbID.setSelectedIndex(0);
+            txtExistencias.setText("");
+            jcbClasificacion.setSelectedIndex(0);
+        }//if
+        btnEditar.setEnabled(false);
+        btnEliminar.setEnabled(false);
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
- 
+ try{
+            validarInventario();
+            //int Existencias, int ID, String Nombre, String Proveedor, String Clasificacion
+            I[in++]=new Inventario(ex,ID,name,prov,cla);
+            Object O[]=new Object[9];
+            O[0]=ID;
+            O[1]=name;
+            O[2]=prov;
+            O[3]=ex;
+            O[4]=cla;
+            m.addRow(O);
+            jcbID.setSelectedIndex(0);
+            txtExistencias.setText("");
+            jcbClasificacion.setSelectedIndex(0);
+            controlador.guardar("Inventario",I);
+        }catch (IntegerException | NumberFormatException | IDsException | StringException e){
+            showMessageDialog(this,e.getMessage());
+        }
     }//GEN-LAST:event_btnAgregarActionPerformed
 
  
@@ -239,28 +390,25 @@ public class VentanaInventario extends javax.swing.JFrame {
         });
     }
     private Inventario I[]=new Inventario[30];
-    private int ID,min,max,pos=-1,a=0,can=0;
-    private String name,desc,prov,cla;
-    private double precio;
+    private int ID,min,max,pos=-1,in=0,ex=0;
+    private String name,prov,cla;
     private DefaultTableModel m;
-    private File archivo = new File("ARTICULOS.VET");
-    private ObjectOutputStream fcs;//flujo de objetos de escritura
-    private ObjectInputStream fce;//flujo de objetos de lectura
     private Inventario B[] = new Inventario[30];
-    private Proveedores P[] = new Proveedores[30];
+    private Articulos A[] = new Articulos[30];
+    Controller controlador = new Controller();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnOrdenar;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JComboBox<String> jcbClasificacion;
     private javax.swing.JComboBox<String> jcbID;
     private javax.swing.JLabel lblClasificacion;
     private javax.swing.JLabel lblExistencias;
+    private javax.swing.JLabel lblID;
     private javax.swing.JTable tblInventario;
     private javax.swing.JTextField txtExistencias;
     // End of variables declaration//GEN-END:variables

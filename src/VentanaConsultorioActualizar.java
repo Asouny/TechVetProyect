@@ -20,6 +20,13 @@ public class VentanaConsultorioActualizar extends javax.swing.JFrame {
         txtEquipo.setText(consultorioUpdate.getEquipo());
         jcbDisponibilidad.setSelectedItem(consultorioUpdate.getDisponibilidad());
         txtCapacidad.setText(consultorioUpdate.getCapacidad() + "");
+
+        Con = new Consultorio(
+                txtEquipo.getText(),
+                Integer.parseInt(txtCapacidad.getText()),
+                Integer.parseInt(txtID.getText()),
+                jcbDisponibilidad.getSelectedItem().toString()
+        );
     }
 
     /**
