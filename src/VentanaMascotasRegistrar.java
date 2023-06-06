@@ -13,18 +13,17 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author orozc
  */
-public class VentanaMascotas extends javax.swing.JFrame {
+public class VentanaMascotasRegistrar extends javax.swing.JFrame {
 
     /**
      * Creates new form VentanaMascota
      */
-    public VentanaMascotas() {
+    public VentanaMascotasRegistrar() {
         initComponents();
-        m = (DefaultTableModel) tblMascotas.getModel();
-        leerMascotas();
         leerClientes();
+        leerMascotas();
+        id++;        this.setLocationRelativeTo(null);
 
-        id++;
     }
 
     /**
@@ -38,35 +37,24 @@ public class VentanaMascotas extends javax.swing.JFrame {
 
         lblSexo = new javax.swing.JLabel();
         lblNombre = new javax.swing.JLabel();
-        btnEliminar = new javax.swing.JButton();
         jcbSexo = new javax.swing.JComboBox<>();
-        btnBuscar = new javax.swing.JButton();
         txtNombre = new javax.swing.JTextField();
-        btnEditar = new javax.swing.JButton();
         btnAgregar = new javax.swing.JButton();
         txtEdad = new javax.swing.JTextField();
         lblEdad = new javax.swing.JLabel();
-        btnOrdenar = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblMascotas = new javax.swing.JTable();
         lblclie = new javax.swing.JLabel();
         jcbCliente = new javax.swing.JComboBox<>();
         lblespe = new javax.swing.JLabel();
         jcbEspecie = new javax.swing.JComboBox<>();
+        jLabel2 = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        jSeparator2 = new javax.swing.JSeparator();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         lblSexo.setText("Sexo:");
 
         lblNombre.setText("Nombre:");
-
-        btnEliminar.setText("Eliminar");
-        btnEliminar.setEnabled(false);
-        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEliminarActionPerformed(evt);
-            }
-        });
 
         jcbSexo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sexo", "H", "F" }));
         jcbSexo.addActionListener(new java.awt.event.ActionListener() {
@@ -75,24 +63,9 @@ public class VentanaMascotas extends javax.swing.JFrame {
             }
         });
 
-        btnBuscar.setText("Buscar");
-        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscarActionPerformed(evt);
-            }
-        });
-
         txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtNombreKeyPressed(evt);
-            }
-        });
-
-        btnEditar.setText("Editar");
-        btnEditar.setEnabled(false);
-        btnEditar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditarActionPerformed(evt);
             }
         });
 
@@ -110,23 +83,6 @@ public class VentanaMascotas extends javax.swing.JFrame {
         });
 
         lblEdad.setText("Edad:");
-
-        btnOrdenar.setText("Ordenar");
-        btnOrdenar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnOrdenarActionPerformed(evt);
-            }
-        });
-
-        tblMascotas.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "IdMascota", "Nombre", "Especie", "Edad", "Sexo", "IdCliente"
-            }
-        ));
-        jScrollPane1.setViewportView(tblMascotas);
 
         lblclie.setText("Cliente:");
 
@@ -146,80 +102,95 @@ public class VentanaMascotas extends javax.swing.JFrame {
             }
         });
 
+        jLabel2.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("Registrar Mascota");
+        jLabel2.setToolTipText("");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblclie)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jcbCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnAgregar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnEditar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnEliminar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnOrdenar))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblNombre)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblSexo)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jcbSexo, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(16, 16, 16)
-                                .addComponent(lblEdad)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtEdad, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblespe)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jcbEspecie, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 406, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnBuscar)
-                                .addGap(0, 75, Short.MAX_VALUE)))))
+                                .addGap(60, 60, 60)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(39, 39, 39)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblclie)
+                                    .addComponent(lblSexo)
+                                    .addComponent(lblEdad)
+                                    .addComponent(lblespe)
+                                    .addComponent(lblNombre))
+                                .addGap(53, 53, 53)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(txtEdad)
+                                        .addComponent(jcbSexo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jcbEspecie, 0, 200, Short.MAX_VALUE)
+                                        .addComponent(jcbCliente, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 406, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnAgregar)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(11, 11, 11)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblNombre)
-                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(9, 9, 9)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblSexo)
-                    .addComponent(jcbSexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblEdad)
+                    .addComponent(jcbSexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtEdad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jcbEspecie, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblespe))
+                    .addComponent(lblEdad))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAgregar)
-                    .addComponent(jcbCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblespe)
+                    .addComponent(jcbEspecie, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblclie)
-                    .addComponent(btnEditar)
-                    .addComponent(btnEliminar)
-                    .addComponent(btnOrdenar)
-                    .addComponent(btnBuscar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jcbCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnAgregar)
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    private void leerMascotas(){
+        M = controlador.leer("Mascotas", Mascota.class);
+        
+        for(int i = 0; i<M.length;i++){
+            if(M[i]==null){
+                return;
+            }
+            id = M[i].getId();
+            a++;
+        }
+    }
     private boolean validarMascotas(boolean b) {
         //validar nombre
         name = txtNombre.getText();
@@ -276,83 +247,13 @@ public class VentanaMascotas extends javax.swing.JFrame {
         return b;
     }
 
-    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-
-        int boton = showConfirmDialog(this, "Seguro que quieres borrar?");
-        if (boton == 0) {
-            m.removeRow(pos);
-            for (int i = pos; i < a; i++) {
-                M[i] = M[i + 1];
-                a--;
-            }//for
-            txtNombre.setText("");
-            txtEdad.setText("");
-            jcbSexo.setSelectedIndex(0);
-            txtEdad.setText("");
-            jcbEspecie.setSelectedIndex(0);
-            jcbCliente.setSelectedIndex(0);
-        }//if
-    }//GEN-LAST:event_btnEliminarActionPerformed
-
     private void jcbSexoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbSexoActionPerformed
         lblSexo.setForeground(Color.black);
     }//GEN-LAST:event_jcbSexoActionPerformed
 
-    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        String no;
-        no = txtNombre.getText();
-        if (no.equals("")) {
-            showMessageDialog(this, "Falta ingresar el Nombre");
-            lblNombre.setForeground(Color.red);
-            txtNombre.requestFocus();
-            return;
-        }
-        for (int i = 0; i < a; i++) {
-            if (no.equals(M[i].getNombre())) {
-                txtNombre.setText(M[i].getNombre());
-                txtEdad.setText(M[i].getEdad() + "");
-                jcbCliente.setSelectedItem(M[i].getCliente());
-                jcbSexo.setSelectedItem(M[i].getSexo());
-                jcbEspecie.setSelectedItem(M[i].getEspecie());
-                pos = 0;
-                btnEditar.setEnabled(true);
-                btnEliminar.setEnabled(true);
-                return;
-            }//if
-        }//for
-        showMessageDialog(this, "No encontrado");
-    }//GEN-LAST:event_btnBuscarActionPerformed
-
     private void txtNombreKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyPressed
         lblNombre.setForeground(Color.black);
     }//GEN-LAST:event_txtNombreKeyPressed
-
-    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        boolean b = true;
-        validarMascotas(b);
-        if (b == true) {
-            //editar nombre
-            name = txtNombre.getText();
-            M[pos].setNombre(name);
-            m.setValueAt(name, pos, 0);
-
-            sex = jcbSexo.getSelectedItem().toString();
-            M[pos].setSexo(sex);
-            m.setValueAt(sex, pos, 1);
-
-            edad = Integer.parseInt(txtEdad.getText());
-            M[pos].setEdad(edad);
-            m.setValueAt(edad, pos, 2);
-
-            clie = jcbCliente.getSelectedItem().toString();
-            M[pos].setEspecie(clie);
-            m.setValueAt(clie, pos, 4);
-
-            espe = jcbEspecie.getSelectedItem().toString();
-            M[pos].setEspecie(espe);
-            m.setValueAt(espe, pos, 4);
-        }
-    }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         boolean b = true;
@@ -361,16 +262,8 @@ public class VentanaMascotas extends javax.swing.JFrame {
             //String nombre, String especie, String sexo, String cliente, int id, int edad
             M[a++] = new Mascota(name, espe, sex, Integer.parseInt(clie), id, edad);
 
-            Object O[] = new Object[6];
-            O[0] = id;
-            O[1] = name;
-            O[2] = espe;
-            O[3] = edad;
-            O[4] = sex;
-            O[5] = clie;
-            m.addRow(O);
-
             controlador.guardar("Mascotas", M);
+            
             txtNombre.setText("");
             txtEdad.setText("");
             jcbSexo.setSelectedIndex(0);
@@ -383,10 +276,6 @@ public class VentanaMascotas extends javax.swing.JFrame {
     private void txtEdadKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEdadKeyPressed
 
     }//GEN-LAST:event_txtEdadKeyPressed
-
-    private void btnOrdenarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrdenarActionPerformed
-
-    }//GEN-LAST:event_btnOrdenarActionPerformed
 
     private void jcbClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbClienteActionPerformed
 
@@ -435,29 +324,6 @@ public class VentanaMascotas extends javax.swing.JFrame {
         }
     }
 
-    private void leerMascotas() {
-
-        M = (Mascota[]) controlador.leer("Mascotas", Mascota.class);
-        Object R[] = new Object[6];
-        m.setRowCount(0);
-        //ciclo que si se cumple, manda a agregar a la tabla para cuando inicie el programa de nuevo
-        for (int i = 0; i < M.length; i++) {
-            if (M[i] == null) {
-                return; //si el renglon que quiere agregar está vacío, no lo agregará y no marcará error
-            }
-            id = M[i].getId();
-            R[0] = M[i].getId();
-            R[1] = M[i].getNombre();
-            R[2] = M[i].getEspecie();
-            R[3] = M[i].getEdad();
-            R[4] = M[i].getSexo();
-            R[5] = M[i].getCliente();
-
-            m.addRow(R);
-            a++;
-
-        }
-    }
 
     public int buscaMascota(int ca, Mascota A[]) {
         for (int i = 0; i < a; i++) {
@@ -502,13 +368,13 @@ public class VentanaMascotas extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VentanaMascotas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaMascotasRegistrar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VentanaMascotas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaMascotasRegistrar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VentanaMascotas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaMascotasRegistrar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VentanaMascotas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaMascotasRegistrar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -518,7 +384,7 @@ public class VentanaMascotas extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VentanaMascotas().setVisible(true);
+                new VentanaMascotasRegistrar().setVisible(true);
             }
         });
     }
@@ -534,11 +400,9 @@ public class VentanaMascotas extends javax.swing.JFrame {
     Controller controlador = new Controller();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
-    private javax.swing.JButton btnBuscar;
-    private javax.swing.JButton btnEditar;
-    private javax.swing.JButton btnEliminar;
-    private javax.swing.JButton btnOrdenar;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JComboBox<String> jcbCliente;
     private javax.swing.JComboBox<String> jcbEspecie;
     private javax.swing.JComboBox<String> jcbSexo;
@@ -547,7 +411,6 @@ public class VentanaMascotas extends javax.swing.JFrame {
     private javax.swing.JLabel lblSexo;
     private javax.swing.JLabel lblclie;
     private javax.swing.JLabel lblespe;
-    private javax.swing.JTable tblMascotas;
     private javax.swing.JTextField txtEdad;
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
