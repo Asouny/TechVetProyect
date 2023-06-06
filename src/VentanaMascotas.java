@@ -274,7 +274,7 @@ public class VentanaMascotas extends javax.swing.JFrame {
     }
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        
+
         int boton = showConfirmDialog(this, "Seguro que quieres borrar?");
         if (boton == 0) {
             m.removeRow(pos);
@@ -357,8 +357,16 @@ public class VentanaMascotas extends javax.swing.JFrame {
         if (b == true) {
             //String nombre, String especie, String sexo, String cliente, int id, int edad
             M[a++] = new Mascota(name, espe, sex, clie, id, edad);
-            
-            
+
+            Object O[] = new Object[6];
+            O[0] = id;
+            O[1] = name;
+            O[2] = espe;
+            O[3] = edad;
+            O[4] = sex;
+            O[5] = id;
+            m.addRow(O);
+
             controlador.guardar("Mascotas", M);
             txtNombre.setText("");
             txtEdad.setText("");
@@ -427,7 +435,7 @@ public class VentanaMascotas extends javax.swing.JFrame {
     private void leerMascotas() {
 
         M = (Mascota[]) controlador.leer("Mascotas", Mascota.class);
-        Object R[] = new Object[6];
+        Object R[] = new Object[5];
         m.setRowCount(0);
         //ciclo que si se cumple, manda a agregar a la tabla para cuando inicie el programa de nuevo
         for (int i = 0; i < M.length; i++) {
@@ -443,16 +451,16 @@ public class VentanaMascotas extends javax.swing.JFrame {
             int espacioBlancoIndex = M[i].getCliente().indexOf(" ");
 
             String clienteNumero = M[i].getCliente().substring(0, espacioBlancoIndex);
-            
+
             int clienteNumeroEntero = Integer.parseInt(clienteNumero);
 
-           if(C[i]!= null){
-                   int clienteEncontradoID = buscaCliente(clienteNumeroEntero, C);
-            R[5] = C[clienteEncontradoID].toString().substring(0, 2);
-           }else{
-            m.addRow(R);
-            a++;
-        }
+            if (C[i] != null) {
+                int clienteEncontradoID = buscaCliente(clienteNumeroEntero, C);
+                R[5] = C[clienteEncontradoID].toString().substring(0, 2);
+            } else {
+                m.addRow(R);
+                a++;
+            }
         }
     }
 
