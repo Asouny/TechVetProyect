@@ -84,7 +84,7 @@ public class PrincipalPage extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("veterianaria general");
+        jMenu2.setText("Veterinaria");
 
         jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/PrincipalPageComponent/src/employees.png"))); // NOI18N
         jMenuItem4.setText("Registrar empleado");
