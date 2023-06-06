@@ -164,6 +164,11 @@ public class VentanaInventario extends javax.swing.JFrame {
 
         btnEliminar.setText("Eliminar");
         btnEliminar.setEnabled(false);
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         btnEditar.setText("Editar");
         btnEditar.setEnabled(false);
@@ -264,7 +269,8 @@ public class VentanaInventario extends javax.swing.JFrame {
     
     
     private void btnOrdenarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrdenarActionPerformed
-    
+        OrdenaIDs();
+        llenaTabla();
     }//GEN-LAST:event_btnOrdenarActionPerformed
 
     public int buscarInventario(int id,Inventario I[]){
@@ -310,28 +316,12 @@ public class VentanaInventario extends javax.swing.JFrame {
             showMessageDialog(this,e.getMessage());
         }
         btnEditar.setEnabled(false);
-        btnEliminar.setEnabled(false);
-    }                                         
-
-    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {                                            
-        int boton=showConfirmDialog(this,"Seguro que quieres borrar?");
-        if(boton==0){
-            m.removeRow(pos);
-            for(int i=pos;i<in;i++){
-                I[i]=I[i+1];
-                in--;
-            }//for
-            controlador.guardar("INVENTARIO",I);
-            jcbID.setSelectedIndex(0);
-            txtExistencias.setText("");
-            jcbClasificacion.setSelectedIndex(0);
-        }//if
-        btnEditar.setEnabled(false);
-        btnEliminar.setEnabled(false);
+        btnEliminar.setEnabled(false);                                            
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
  try{
+            validarID();
             validarInventario();
             //int Existencias, int ID, String Nombre, String Proveedor, String Clasificacion
             I[in++]=new Inventario(ex,ID,name,prov,cla);
@@ -350,6 +340,24 @@ public class VentanaInventario extends javax.swing.JFrame {
             showMessageDialog(this,e.getMessage());
         }
     }//GEN-LAST:event_btnAgregarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        int boton=showConfirmDialog(this,"Seguro que quieres borrar?");
+        if(boton==0){
+            m.removeRow(pos);
+            I = controlador.eliminar(I,pos);
+                for(int i=pos;i<in;i++){
+                I[i]=I[i+1];
+                in--;
+            }//for
+            controlador.guardar("INVENTARIO",I);
+            jcbID.setSelectedIndex(0);
+            txtExistencias.setText("");
+            jcbClasificacion.setSelectedIndex(0);
+        }//if
+        btnEditar.setEnabled(false);
+        btnEliminar.setEnabled(false);
+    }//GEN-LAST:event_btnEliminarActionPerformed
 
  
         
