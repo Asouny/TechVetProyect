@@ -119,7 +119,7 @@ public class PrincipalPage extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu2);
 
-        jMenu5.setText("Clientes");
+        jMenu5.setText("Compradores");
 
         jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/PrincipalPageComponent/src/servicio-al-cliente.png"))); // NOI18N
         jMenuItem1.setText("Registrar Cliente");
@@ -153,7 +153,7 @@ public class PrincipalPage extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu6);
 
-        jMenu7.setText("Consultorios");
+        jMenu7.setText("recursos");
 
         jMenuItem13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/PrincipalPageComponent/src/perro (1).png"))); // NOI18N
         jMenuItem13.setText("Registrar consultorio");
