@@ -30,25 +30,6 @@ public class Controller {
         }
     }
 
-    public Object[] leer2(String tbl) {
-        Object[] data = null;
-
-        try {
-            FileInputStream flujoBytes = new FileInputStream(tbl + ".obj");
-            ObjectInputStream fce = new ObjectInputStream(flujoBytes);
-            Object obj = fce.readObject();
-            data = (Object[]) obj;
-
-        } catch (FileNotFoundException ex) {
-            showMessageDialog(null, "Error: el archivo no se encontró");
-        } catch (IOException ex) {
-            showMessageDialog(null, "Error de lectura del archivo");
-        } catch (ClassNotFoundException ex) {
-            showMessageDialog(null, "Error: clase no encontrada");
-        }
-        return data;
-    }
-
     public <T> T[] leer(String tbl, Class<T> clase) {
         T[] data = (T[]) Array.newInstance(clase, 30);
         try {
@@ -77,6 +58,26 @@ public class Controller {
         }
         return data;
     }
+
+    public <T> T[] eliminar(T[] arreglo, int posicion) {
+    // Validar la posición
+    if (posicion < 0 || posicion >= arreglo.length) {
+        System.out.println("Error: posición inválida");
+        return arreglo;
+    }
+
+    // Crear un nuevo arreglo con una longitud menor
+    T[] nuevoArreglo = (T[]) Array.newInstance(arreglo.getClass().getComponentType(), arreglo.length - 1);
+
+    // Copiar los elementos antes de la posición
+    System.arraycopy(arreglo, 0, nuevoArreglo, 0, posicion);
+
+    // Copiar los elementos después de la posición
+    System.arraycopy(arreglo, posicion + 1, nuevoArreglo, posicion, arreglo.length - posicion - 1);
+
+    return nuevoArreglo;
+}
+
 
     //nuevos agregados con lo de archivos
     private ObjectOutputStream fcs; // flujo de objetos de escritura
