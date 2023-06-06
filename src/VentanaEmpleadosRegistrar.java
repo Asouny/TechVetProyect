@@ -83,7 +83,7 @@ public class VentanaEmpleadosRegistrar extends javax.swing.JFrame {
         lblNombre1 = new javax.swing.JLabel();
         txtNombre1 = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {

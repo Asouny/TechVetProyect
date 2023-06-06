@@ -38,6 +38,8 @@ public class VentanaEmpleadosCatalogos extends javax.swing.JFrame {
 
         E = (Empleado[]) controlador.leer("Empleados", Empleado.class);
         Object R[] = new Object[6];
+        m.setRowCount(0);
+
         for (int i = 0; i < E.length; i++) {
             if (E[i] == null) {
                 return;
@@ -80,9 +82,9 @@ public class VentanaEmpleadosCatalogos extends javax.swing.JFrame {
         btnOrdenar = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtSearch = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         tblEmpleados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -132,9 +134,9 @@ public class VentanaEmpleadosCatalogos extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
         jLabel1.setText("Catalogo de Empleados");
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        txtSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                txtSearchActionPerformed(evt);
             }
         });
 
@@ -149,7 +151,7 @@ public class VentanaEmpleadosCatalogos extends javax.swing.JFrame {
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(242, 242, 242))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jTextField1)
+                        .addComponent(txtSearch)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnBuscar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -178,13 +180,13 @@ public class VentanaEmpleadosCatalogos extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnBuscar)
                     .addComponent(btnOrdenar)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnEliminar)
-                    .addComponent(btnEditar))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnEditar)
+                    .addComponent(btnEliminar))
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -193,19 +195,36 @@ public class VentanaEmpleadosCatalogos extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void guardarArray() {
-        try {
-            FileOutputStream fb = new FileOutputStream("EMPLEADOS.VET");
-            fcs = new ObjectOutputStream(fb);//true es para que agregue otra al final
-            fcs.writeObject(E);
-            fcs.flush();
-        } catch (IOException ex) {
-            showMessageDialog(this, "ERROR");
-        }
-    }
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        if (txtSearch.getText().equals("")) {
+            leerEmpleados();
+            return;
+        } else {
+            int id = Integer.parseInt(txtSearch.getText());
 
+            int empleadoPOS = buscaEmpleados(id, E);
+
+            if (empleadoPOS == -1) {
+                showMessageDialog(this, "Empleado no encontrado");
+
+            } else {
+                Empleado EmpleadoEncontrado = E[empleadoPOS];
+                m.setRowCount(0);
+
+                Object R[] = new Object[6];
+                //ciclo que si se cumple, manda a agregar a la tabla para cuando inicie el programa de nuevo
+
+                R[0] = EmpleadoEncontrado.getID();
+                R[1] = EmpleadoEncontrado.getNombre();
+                R[2] = EmpleadoEncontrado.getEdad();
+                R[3] = EmpleadoEncontrado.getSexo();
+                R[4] = EmpleadoEncontrado.getPuesto();
+                R[5] = EmpleadoEncontrado.getSueldo();
+                m.addRow(R);
+                c++;
+            }
+        }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
@@ -237,7 +256,8 @@ public class VentanaEmpleadosCatalogos extends javax.swing.JFrame {
 
         if (showConfirmDialog(this, "Se borrará el renglón, ¿proceder?") == 0) {
             m.removeRow(empleadoEDITPOS); // pos, pues es la posicion de la que se habla, se borra en la tabla
-            eliminarEmpleado(empleadoEDITPOS);
+
+            E = controlador.eliminar(E, empleadoEDITPOS);
             controlador.guardar("Empleados", E); //para guardarlo en el archivo
             //txtID.setText("");
 
@@ -247,27 +267,15 @@ public class VentanaEmpleadosCatalogos extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnEliminarActionPerformed
 
-        public void eliminarEmpleado(int posicion) {
 
-        // Copiar los elementos antes de la posición
-        System.arraycopy(E, 0, E, 0, posicion);
-
-        // Copiar los elementos después de la posición
-        System.arraycopy(E, posicion + 1, E, posicion, E.length - posicion - 1);
-
-        // Asignar null al último elemento
-        E[E.length - 1] = null;
-
-    }
-        
     private void btnOrdenarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrdenarActionPerformed
         OrdenaIDs();
         llenaTabla();
     }//GEN-LAST:event_btnOrdenarActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void txtSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_txtSearchActionPerformed
 
     private void tblEmpleadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEmpleadosMouseClicked
         userSelectedID = obtenerIdClienteSeleccionado();
@@ -367,7 +375,7 @@ public class VentanaEmpleadosCatalogos extends javax.swing.JFrame {
         });
     }
     private Empleado E[] = new Empleado[30];
-    private int edad, e, su, ID, pos = -1;
+    private int edad, e, su, ID, pos = -1, c;
     private String name, sex, puesto;
     private DefaultTableModel m;
     private File archivo = new File("EMPLEADOS.VET");
@@ -385,7 +393,7 @@ public class VentanaEmpleadosCatalogos extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTable tblEmpleados;
+    private javax.swing.JTextField txtSearch;
     // End of variables declaration//GEN-END:variables
 }
