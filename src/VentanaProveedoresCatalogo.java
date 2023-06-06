@@ -15,59 +15,54 @@ import javax.swing.table.DefaultTableModel;
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
+
 /**
  *
  * @author orozc
  */
-public class VentanaProveedores extends javax.swing.JFrame {
+public class VentanaProveedoresCatalogo extends javax.swing.JFrame {
 
     /**
      * Creates new form VentanaProveedores
      */
-    public VentanaProveedores() {
+    public VentanaProveedoresCatalogo() {
         initComponents();
         m = (DefaultTableModel) tblProveedores.getModel();
         leerProveedores();
     }
-
-    private void leerProveedores() {
+    
+    private void leerProveedores(){
         if (archivo.exists()) {
-            try {
-                FileInputStream fb = new FileInputStream("PROVEEDORES.VET");//flujo de Bytes
-                fce = new ObjectInputStream(fb);//flujo de Objectos
-                P = (Proveedores[]) fce.readObject();
-                Object R[] = new Object[5];
-                for (int i = 0; i < P.length; i++) {
-                    if (P[i] == null) {
-                        return;
-                    }
-                    R[0] = P[i].getID();
-                    R[1] = P[i].getNombre();
-                    R[2] = P[i].getRFC();
-                    R[3] = P[i].getTelefono();
-                    R[4] = P[i].getCorreo();
-                    m.addRow(R);
-                    pr++;
-                }
-            } catch (FileNotFoundException ex) {
-                showMessageDialog(this, "ERROR");
-            } catch (IOException ex) {
-                showMessageDialog(this, "ERROR");
-            } catch (ClassNotFoundException ex) {
-                showMessageDialog(this, "ERROR");
+        try {
+            FileInputStream fb= new FileInputStream("PROVEEDORES.VET");//flujo de Bytes
+            fce=new ObjectInputStream(fb);//flujo de Objectos
+            P=(Proveedores[]) fce.readObject();
+            Object R[]=new Object[5];
+            for (int i = 0; i < P.length; i++) {
+                if(P[i]==null)return;
+                R[0]=P[i].getID();
+                R[1]=P[i].getNombre();
+                R[2]=P[i].getRFC();
+                R[3]=P[i].getTelefono();
+                R[4]=P[i].getCorreo();
+                m.addRow(R); 
+                pr++;
             }
+        }catch (FileNotFoundException ex){showMessageDialog(this,"ERROR");}
+        catch(IOException ex){showMessageDialog(this,"ERROR");}
+        catch(ClassNotFoundException ex){showMessageDialog(this,"ERROR");}
         }
     }
-
-    public int buscarProveedores(int id, Proveedores E[]) {
+    
+    public int buscarProveedores(int id,Proveedores E[]){
         for (int i = 0; i < pr; i++) {
-            if (id == P[i].getID()) {
+            if(id==P[i].getID()){
                 return i;
             }
         }
         return -1;
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -256,92 +251,92 @@ public class VentanaProveedores extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void validarID() throws IntegerException, IDsException {
-        try {
-            ID = Integer.parseInt(txtID.getText());
-            if (ID == 0) {
-                txtID.requestFocus();
-                throw new IntegerException("Falta ingresar el ID");
-            }
-            if (pr != 0) {
-                for (int i = 0; i < pr; i++) {
-                    if (ID == P[i].getID()) {
-                        throw new IDsException("El ID ingresado ya esta en uso");
-                    }
+    private void validarID()throws IntegerException,IDsException{
+    try{
+        ID = Integer.parseInt(txtID.getText());
+        if(ID==0){
+            txtID.requestFocus();
+            throw new IntegerException("Falta ingresar el ID");
+        }
+        if(pr!=0){
+            for(int i = 0; i < pr; i++) {
+                if(ID==P[i].getID()){
+                throw new IDsException("El ID ingresado ya esta en uso");
                 }
             }
-        } catch (IntegerException | NumberFormatException | IDsException e) {
+        }
+        }catch (IntegerException | NumberFormatException | IDsException e){
             lblID.setForeground(Color.red);
             txtID.requestFocus();
             throw e;
         }
     }
-
-    private void validarProveedores() throws StringException, IntegerException, IDsException {
-        try {
-            name = txtNombre.getText();
-            if (name.equals("")) {
-                txtNombre.requestFocus();
-                throw new StringException("Falta ingresar el nombre");
+    
+    private void validarProveedores()throws StringException,IntegerException,IDsException{
+    try{
+        name=txtNombre.getText();
+        if(name.equals("")){
+            txtNombre.requestFocus(); 
+            throw new StringException("Falta ingresar el nombre");  
             }
-        } catch (StringException e) {
+        }catch (StringException e){
             lblNombre.setForeground(Color.red);
             txtNombre.requestFocus();
             throw e;
         }
-        try {
-            RFC = txtRFC.getText().trim().toUpperCase();
-            if (RFC.length() != 12) {
-                throw new StringException("El RFC no tiene 12 digitos");
-            }
-            if (!RFC.matches("[A-Z]{3}[0-9]{6}[A-Z0-9]{3}")) {
-                throw new StringException("El formato no es correcto");
-            }
-        } catch (StringException e) {
+    try{
+        RFC = txtRFC.getText().trim().toUpperCase();
+        if (RFC.length() != 12) {
+            throw new StringException("El RFC no tiene 12 digitos"); 
+        }
+        if (!RFC.matches("[A-Z]{3}[0-9]{6}[A-Z0-9]{3}")) {
+            throw new StringException("El formato no es correcto");
+        }
+        }catch (StringException e){
             lblRFC.setForeground(Color.red);
             txtRFC.requestFocus();
             throw e;
         }
-        try {
-            tel = txtTel.getText();
-            if (tel.length() != 10) {
-                throw new IntegerException("La longitud no es correcta");
-            }
-            if (!tel.matches("\\d+")) {
-                throw new IntegerException("Debe tener solo numeros");
-            }
-        } catch (StringException e) {
+    try{
+        tel=txtTel.getText();
+        if (tel.length() != 10) {
+            throw new IntegerException("La longitud no es correcta"); 
+        }
+        if (!tel.matches("\\d+")) {
+            throw new IntegerException("Debe tener solo numeros");
+        }    
+        }catch (StringException e){
             lblTel.setForeground(Color.red);
             txtTel.requestFocus();
             throw e;
         }
-        try {
-            correo = txtCE.getText();
-            if (correo.isEmpty()) {
-                throw new StringException("Falta ingresar el Correo Electronico");
-            }
-            if (!correo.matches("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}")) {
-                throw new StringException("El correo electronico no cumple el formato");
-            }
-        } catch (StringException e) {
+    try{
+        correo=txtCE.getText();
+        if (correo.isEmpty()) {
+            throw new StringException("Falta ingresar el Correo Electronico");
+        }
+        if (!correo.matches("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}")) {
+            throw new StringException("El correo electronico no cumple el formato");
+        }    
+        }catch (StringException e){
             lblCE.setForeground(Color.red);
             txtCE.requestFocus();
             throw e;
         }
     }
-
+    
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        try {
+        try{
             validarID();
             validarProveedores();
             //String Nombre, String RFC, String Correo, String Telefono,int ID
-            P[pr++] = new Proveedores(name, RFC, correo, tel, ID);
-            Object O[] = new Object[5];
-            O[0] = ID;
-            O[1] = name;
-            O[2] = RFC;
-            O[3] = tel;
-            O[4] = correo;
+            P[pr++]=new Proveedores(name,RFC,correo,tel,ID);
+            Object O[]=new Object[5];
+            O[0]=ID;
+            O[1]=name;
+            O[2]=RFC;
+            O[3]=tel;
+            O[4]=correo;
             m.addRow(O);
             txtID.setText("");
             txtNombre.setText("");
@@ -349,50 +344,49 @@ public class VentanaProveedores extends javax.swing.JFrame {
             txtTel.setText("");
             txtCE.setText("");
             guardarArray();
-        } catch (IntegerException | NumberFormatException | IDsException | StringException e) {
-            showMessageDialog(this, e.getMessage());
+        }catch (IntegerException | NumberFormatException | IDsException | StringException e){
+            showMessageDialog(this,e.getMessage());
         }
     }//GEN-LAST:event_btnAgregarActionPerformed
-
-    private void guardarArray() {
+    
+    private void guardarArray(){
         try {
-            FileOutputStream fb = new FileOutputStream("PROVEEDORES.VET");
-            fcs = new ObjectOutputStream(fb);//true es para que agregue otra al final
+            FileOutputStream fb= new FileOutputStream("PROVEEDORES.VET");
+            fcs=new ObjectOutputStream(fb);//true es para que agregue otra al final
             fcs.writeObject(P);
             fcs.flush();
         } catch (IOException ex) {
-            showMessageDialog(this, "ERROR");
-        }
+            showMessageDialog(this,"ERROR");}
     }
-
+    
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        try {
+        try{
             validarProveedores();
-            name = txtNombre.getText();
+            name=txtNombre.getText();
             P[pos].setNombre(name);
-            m.setValueAt(name, pos, 1);
+            m.setValueAt(name,pos,1);
             RFC = txtRFC.getText();
             P[pos].setRFC(RFC);
-            m.setValueAt(RFC, pos, 2);
+            m.setValueAt(RFC,pos,2);
             tel = txtTel.getText();
             P[pos].setTelefono(tel);
-            m.setValueAt(tel, pos, 3);
+            m.setValueAt(tel,pos,3);
             correo = txtCE.getText();
             P[pos].setCorreo(correo);
-            m.setValueAt(correo, pos, 4);
-        } catch (IntegerException | NumberFormatException | IDsException | StringException e) {
-            showMessageDialog(this, e.getMessage());
+            m.setValueAt(correo,pos,4);
+        }catch(IntegerException | NumberFormatException | IDsException | StringException e){
+            showMessageDialog(this,e.getMessage());
         }
         btnEditar.setEnabled(false);
         btnEliminar.setEnabled(false);
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        int boton = showConfirmDialog(this, "Seguro que quieres borrar?");
-        if (boton == 0) {
+        int boton=showConfirmDialog(this,"Seguro que quieres borrar?");
+        if(boton==0){
             m.removeRow(pos);
-            for (int i = pos; i < pr; i++) {
-                P[i] = P[i + 1];
+            for(int i=pos;i<pr;i++){
+                P[i]=P[i+1];
                 pr--;
             }//for
             guardarArray();
@@ -411,47 +405,45 @@ public class VentanaProveedores extends javax.swing.JFrame {
         llenaTabla();
     }//GEN-LAST:event_btnOrdenarActionPerformed
 
-    private void OrdenaIDs() {
-        int n = pr;
-        for (int p = 1; p < n; p++) {//pasadas
-            for (int i = 0; i < n - p; i++) {
-                if (P[i].getID() > P[i + 1].getID()) {
-                    Proveedores pro = new Proveedores();
-                    pro = P[i];
-                    P[i] = P[i + 1];
-                    P[i + 1] = pro;
+    private void OrdenaIDs(){
+        int n=pr;
+        for(int p=1;p<n;p++){//pasadas
+            for(int i=0;i<n-p;i++){
+                if(P[i].getID()>P[i+1].getID()){
+                    Proveedores pro=new Proveedores();
+                    pro=P[i];
+                    P[i]=P[i+1];
+                    P[i+1]=pro;
                 }//if
             }//for
         }//for
     }
-
-    public void llenaTabla() {
-        for (int i = 0; i < pr; i++) {
-            m.setValueAt(P[i].getID(), i, 0);
-            m.setValueAt(P[i].getNombre(), i, 1);
-            m.setValueAt(P[i].getRFC(), i, 2);
-            m.setValueAt(P[i].getTelefono(), i, 3);
-            m.setValueAt(P[i].getCorreo(), i, 4);
+    public void llenaTabla(){
+        for(int i=0;i<pr;i++){
+            m.setValueAt(P[i].getID(),i,0);
+            m.setValueAt(P[i].getNombre(),i,1);
+            m.setValueAt(P[i].getRFC(),i,2);
+            m.setValueAt(P[i].getTelefono(),i,3);
+            m.setValueAt(P[i].getCorreo(),i,4);
         }
     }
-
+    
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        try {
-            int id = Integer.parseInt(txtID.getText());
-            pos = buscarProveedores(id, P);
-            if (pos != -1) {
+        try{
+            int id=Integer.parseInt(txtID.getText());
+            pos=buscarProveedores(id,P);
+            if(pos!=-1){
                 txtNombre.setText(P[pos].getNombre());
                 txtRFC.setText(P[pos].getRFC());
                 txtTel.setText(P[pos].getTelefono());
                 txtCE.setText(P[pos].getCorreo());
                 btnEditar.setEnabled(true);
                 btnEliminar.setEnabled(true);
-            } else {
-                showMessageDialog(this, "Ese empleado no se encuentra registrado");
+            }else{
+                showMessageDialog(this,"Ese empleado no se encuentra registrado");
             }
-        } catch (NumberFormatException e) {
-            showMessageDialog(this, "Falta ingresar el ID");
-        }
+        }catch(NumberFormatException e){
+            showMessageDialog(this,"Falta ingresar el ID");}
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void txtIDKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIDKeyPressed
@@ -463,7 +455,7 @@ public class VentanaProveedores extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNombreKeyPressed
 
     private void txtRFCKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRFCKeyPressed
-        lblRFC.setForeground(Color.black);
+       lblRFC.setForeground(Color.black);
     }//GEN-LAST:event_txtRFCKeyPressed
 
     private void txtTelKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelKeyPressed
@@ -508,9 +500,9 @@ public class VentanaProveedores extends javax.swing.JFrame {
             }
         });
     }
-    private Proveedores P[] = new Proveedores[30];
-    private int pr, ID, pos = -1;
-    private String name, RFC, correo, tel;
+    private Proveedores P[]=new Proveedores[30];
+    private int pr,ID,pos=-1;
+    private String name,RFC,correo,tel;
     private DefaultTableModel m;
     private File archivo = new File("PROVEEDORES.VET");
     private ObjectOutputStream fcs;//flujo de objetos de escritura

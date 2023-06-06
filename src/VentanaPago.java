@@ -17,7 +17,6 @@ import static javax.swing.JOptionPane.YES_OPTION;
 import static javax.swing.JOptionPane.showConfirmDialog;
 import static javax.swing.JOptionPane.showMessageDialog;
 
-
 /**
  *
  * @author gdlup
@@ -29,7 +28,7 @@ public class VentanaPago extends javax.swing.JFrame {
      */
     public VentanaPago() {
         initComponents();
-         m = (DefaultTableModel) tblPagos.getModel();
+        m = (DefaultTableModel) tblPagos.getModel();
         leerClientes();
         leerPagos();
     }
@@ -258,7 +257,7 @@ public class VentanaPago extends javax.swing.JFrame {
             }
             p--; //se decrementa pues se eliminó un renglon
             guardarArray(); //guardar en archivo
-            
+
             jcbMetodo.setSelectedItem(0);
             jcbMotivo.setSelectedItem(0);
             txtMonto.setText("");
@@ -277,10 +276,10 @@ public class VentanaPago extends javax.swing.JFrame {
         int ca = Integer.parseInt(txtID.getText());
         pos = buscaPago(ca, P);
         if (pos != -1) {
-            
+
             jcbMetodo.setSelectedItem(P[pos].getMetodo());
             jcbMotivo.setSelectedItem(P[pos].getMotivo());
-            txtMonto.setText(P[pos].getMonto()+"");
+            txtMonto.setText(P[pos].getMonto() + "");
             btnEditar.setEnabled(true);
             btnEliminar.setEnabled(true);
         } else {
@@ -289,32 +288,27 @@ public class VentanaPago extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        
+
         Date fechaSeleccionada = jDateChooser1.getDate();
 
         String date, met, motiv, id, name;
         float cant = 0;
 
         //editar 
-        
-        P[pos].setFecha(fechaSeleccionada+"");
+        P[pos].setFecha(fechaSeleccionada + "");
         m.setValueAt(fechaSeleccionada, pos, 0);
 
         met = jcbMetodo.getSelectedItem().toString();
         P[pos].setMetodo(met);
         m.setValueAt(met, pos, 1);
-        
-        
+
         motiv = jcbMotivo.getSelectedItem().toString();
         P[pos].setMotivo(motiv);
         m.setValueAt(motiv, pos, 2);
-        
-        
+
         cant = Float.parseFloat(txtMonto.getText());
         P[pos].setMonto(cant);
         m.setValueAt(cant, pos, 3);
-       
-     
 
         guardarArray();
         txtMonto.setText("");
@@ -325,8 +319,8 @@ public class VentanaPago extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        
-         Date fechaSeleccionada = jDateChooser1.getDate();
+
+        Date fechaSeleccionada = jDateChooser1.getDate();
 
         date = "";
         met = "";
@@ -335,9 +329,8 @@ public class VentanaPago extends javax.swing.JFrame {
         name = "";
         id = 0;
 
-
         try {
-            
+
             cant = Integer.parseInt(txtMonto.getText());
         }//catch nombre
         catch (NumberFormatException e) {
@@ -345,15 +338,15 @@ public class VentanaPago extends javax.swing.JFrame {
             txtMonto.setText("");
             txtMonto.requestFocus();
         }
-        
+
         String partes[] = jcbCliente.getSelectedItem().toString().split(" - ");
-        
+
         name = partes[1];
-        
+
         idCliente = Integer.parseInt(partes[0]);
-        
+
         date = fechaSeleccionada + "";
-        
+
         met = jcbMetodo.getSelectedItem().toString();
         if (jcbMetodo.getSelectedIndex() == 0) { //index cuando sea entero
             showMessageDialog(this, "Selecciona un método de pago");
@@ -364,14 +357,13 @@ public class VentanaPago extends javax.swing.JFrame {
             showMessageDialog(this, "Selecciona un motivo de pago");
             jcbMotivo.requestFocus();
         } else {
-            
 
             pos = buscaPago(id, P); //si ya se encuentra la clave, no lo agregara
             if (pos != -1) {
-                showMessageDialog(this, "Este cliente ya tiene un pago registrado"); 
+                showMessageDialog(this, "Este cliente ya tiene un pago registrado");
                 return;
             }
-            
+
             P[p++] = new Pago(date, met, motiv, cant, idCliente);
 
             Object O[] = new Object[6];
@@ -381,7 +373,6 @@ public class VentanaPago extends javax.swing.JFrame {
             O[3] = cant;
             O[4] = idCliente;
             O[5] = name;
-            
 
             m.addRow(O);
             guardarArray();
@@ -389,11 +380,10 @@ public class VentanaPago extends javax.swing.JFrame {
             txtID.setText("");
             jcbMetodo.setSelectedIndex(0);
             jcbMotivo.setSelectedIndex(0);
-        
-        
+
         }
     }//GEN-LAST:event_btnAgregarActionPerformed
-        
+
     private void jcbMetodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbMetodoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jcbMetodoActionPerformed
@@ -410,7 +400,7 @@ public class VentanaPago extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jcbClienteActionPerformed
 
-     private void llenaTabla() {
+    private void llenaTabla() {
         for (int i = 0; i < p; i++) {
             //if
             m.setValueAt(P[i].getFecha(), i, 0);
@@ -437,9 +427,8 @@ public class VentanaPago extends javax.swing.JFrame {
                 }
             }
         }
-    }    
-    
-        
+    }
+
     private void guardarArray() {
 
         try {
@@ -462,7 +451,6 @@ public class VentanaPago extends javax.swing.JFrame {
             Object R[] = new Object[6];
             //ciclo que si se cumple, manda a agregar a la tabla para cuando inicie el programa de nuevo
 
-            
             for (int i = 0; i < P.length; i++) {
                 if (P[i] == null) {
                     return; //si el renglon que quiere agregar está vacío, no lo agregará y no marcará error
@@ -472,12 +460,11 @@ public class VentanaPago extends javax.swing.JFrame {
                 R[2] = P[i].getMotivo();
                 R[3] = P[i].getMonto();
                 R[4] = P[i].getClienteID();
-             
-                int clienteEncontradoID = buscaCliente(P[i].getClienteID(),C);
-                
+
+                int clienteEncontradoID = buscaCliente(P[i].getClienteID(), C);
+
                 R[5] = C[clienteEncontradoID].getNombre();
-                
-                
+
                 m.addRow(R);
                 p++;
             }
@@ -499,17 +486,17 @@ public class VentanaPago extends javax.swing.JFrame {
         }
         return -1; //Por si no los encontró
     }
-    
+
     private void leerClientes() {
         try {
             FileInputStream flujoBytes = new FileInputStream("Clientes.obj"); //flujo de Bytes
             fce = new ObjectInputStream(flujoBytes); //flujo de objetos
             C = (Cliente[]) fce.readObject();
 
-            if( C == null){
-                return ;
+            if (C == null) {
+                return;
             }
-            
+
             // Agregar los clientes al combo box
             for (Cliente cliente : C) {
                 if (cliente == null) {
@@ -527,8 +514,8 @@ public class VentanaPago extends javax.swing.JFrame {
             showMessageDialog(this, "Error");
         }
     }
-    
-        public int buscaCliente(int ca, Cliente A[]) {
+
+    public int buscaCliente(int ca, Cliente A[]) {
         for (int i = 0; i < A.length; i++) {
             if (ca == C[i].getId()) {
                 if (C[i] == null) {
@@ -539,6 +526,7 @@ public class VentanaPago extends javax.swing.JFrame {
         }
         return -1; //Por si no los encontró
     }
+
     /**
      * @param args the command line arguments
      */
@@ -585,7 +573,7 @@ public class VentanaPago extends javax.swing.JFrame {
     private int c;
     //nuevos agregados con lo de archivos
     private ObjectOutputStream fcs; // flujo de objetos de escritura
-    private ObjectInputStream fce; 
+    private ObjectInputStream fce;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnBuscar;

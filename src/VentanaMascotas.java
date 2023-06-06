@@ -254,7 +254,10 @@ public class VentanaMascotas extends javax.swing.JFrame {
 
         //for (Cliente cliente : VentanaClientes.C ) {
         //jcbCliente.addItem(String.valueOf(cliente.getId()));
-        clie = jcbCliente.getSelectedItem().toString();
+        String clientePedazo = jcbCliente.getSelectedItem().toString();
+
+        clie = clientePedazo.split(" - ")[0];
+
         if (clie.equals("Puesto")) {
             showMessageDialog(this, "Falta ingresar el Cliente");
             lblclie.setForeground(Color.red);
@@ -356,7 +359,7 @@ public class VentanaMascotas extends javax.swing.JFrame {
         b = validarMascotas(b);
         if (b == true) {
             //String nombre, String especie, String sexo, String cliente, int id, int edad
-            M[a++] = new Mascota(name, espe, sex, clie, id, edad);
+            M[a++] = new Mascota(name, espe, sex, Integer.parseInt(clie), id, edad);
 
             Object O[] = new Object[6];
             O[0] = id;
@@ -364,7 +367,7 @@ public class VentanaMascotas extends javax.swing.JFrame {
             O[2] = espe;
             O[3] = edad;
             O[4] = sex;
-            O[5] = id;
+            O[5] = clie;
             m.addRow(O);
 
             controlador.guardar("Mascotas", M);
@@ -435,7 +438,7 @@ public class VentanaMascotas extends javax.swing.JFrame {
     private void leerMascotas() {
 
         M = (Mascota[]) controlador.leer("Mascotas", Mascota.class);
-        Object R[] = new Object[5];
+        Object R[] = new Object[6];
         m.setRowCount(0);
         //ciclo que si se cumple, manda a agregar a la tabla para cuando inicie el programa de nuevo
         for (int i = 0; i < M.length; i++) {
@@ -443,31 +446,23 @@ public class VentanaMascotas extends javax.swing.JFrame {
                 return; //si el renglon que quiere agregar está vacío, no lo agregará y no marcará error
             }
             id = M[i].getId();
+            R[0] = M[i].getId();
             R[1] = M[i].getNombre();
             R[2] = M[i].getEspecie();
             R[3] = M[i].getEdad();
             R[4] = M[i].getSexo();
+            R[5] = M[i].getCliente();
 
-            int espacioBlancoIndex = M[i].getCliente().indexOf(" ");
+            m.addRow(R);
+            a++;
 
-            String clienteNumero = M[i].getCliente().substring(0, espacioBlancoIndex);
-
-            int clienteNumeroEntero = Integer.parseInt(clienteNumero);
-
-            if (C[i] != null) {
-                int clienteEncontradoID = buscaCliente(clienteNumeroEntero, C);
-                R[5] = C[clienteEncontradoID].toString().substring(0, 2);
-            } else {
-                m.addRow(R);
-                a++;
-            }
         }
     }
 
     public int buscaMascota(int ca, Mascota A[]) {
         for (int i = 0; i < a; i++) {
-            if (ca == M[i].getId()) {
-                if (M[i] == null) {
+            if (ca == A[i].getId()) {
+                if (A[i] == null) {
                     return -1; //si el renglon que quiere agregar está vacío, no lo agregará y no marcará error
                 }
                 return i; //Return el arreglo en esa posición
@@ -478,12 +473,14 @@ public class VentanaMascotas extends javax.swing.JFrame {
 
     public int buscaCliente(int ca, Cliente A[]) {
         for (int i = 0; i < A.length; i++) {
-            if (ca == C[i].getId()) {
-                if (C[i] == null) {
-                    return -1; //si el renglon que quiere agregar está vacío, no lo agregará y no marcará error
-                }
-                return i; //Return el arreglo en esa posición
-            }//Para que compare id (parámetro) con id del arreglo
+            if (A[i] != null) {
+                if (ca == A[i].getId()) {
+                    if (A[i] == null) {
+                        return -1; //si el renglon que quiere agregar está vacío, no lo agregará y no marcará error
+                    }
+                    return i; //Return el arreglo en esa posición
+                }//Para que compare id (parámetro) con id del arreglo
+            }
         }
         return -1; //Por si no los encontró
     }

@@ -11,18 +11,18 @@ import java.io.Serializable;
  * @author orozc
  */
 public class Mascota implements Serializable {
-    private String nombre,especie,sexo,cliente;
-    private int id,edad;
+    private String nombre,especie,sexo;
+    private int id,edad,clienteID;
     
 
     public Mascota() {
     }
 
-    public Mascota(String nombre, String especie, String sexo, String cliente, int id, int edad) {
+    public Mascota(String nombre, String especie, String sexo, int clienteID, int id, int edad) {
         this.nombre = nombre;
         this.especie = especie;
         this.sexo = sexo;
-        this.cliente = cliente;
+        this.clienteID = clienteID;
         this.id = id;
         this.edad = edad;
     }
@@ -51,12 +51,12 @@ public class Mascota implements Serializable {
         this.sexo = sexo;
     }
 
-    public String getCliente() {
-        return cliente;
+    public int getCliente() {
+        return clienteID;
     }
 
-    public void setCliente(String cliente) {
-        this.cliente = cliente;
+    public void setCliente(int clienteID) {
+        this.clienteID = clienteID;
     }
 
     public int getId() {
