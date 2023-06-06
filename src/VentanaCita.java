@@ -1,4 +1,15 @@
 
+import java.awt.Color;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.util.Date;
+import static javax.swing.JOptionPane.showConfirmDialog;
+import static javax.swing.JOptionPane.showMessageDialog;
+import javax.swing.table.DefaultTableModel;
+
+
 
 /**
  *
@@ -11,7 +22,9 @@ public class VentanaCita extends javax.swing.JFrame {
      */
     public VentanaCita() {
         initComponents();
-        
+         m=(DefaultTableModel) tblCita.getModel();
+        leerMascotas();
+        leerConsultorios();
     }
 
     /**
@@ -23,17 +36,84 @@ public class VentanaCita extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jSeparator1 = new javax.swing.JSeparator();
+        lblMascota = new javax.swing.JLabel();
+        jcbMascota = new javax.swing.JComboBox<>();
+        lblConsultorio = new javax.swing.JLabel();
+        jcbConsultorio = new javax.swing.JComboBox<>();
+        txtFecha = new com.toedter.calendar.JDateChooser();
+        lblFecha = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblCita = new javax.swing.JTable();
+        btnAgregar = new javax.swing.JButton();
+        btnEditar = new javax.swing.JButton();
+        btnEliminar = new javax.swing.JButton();
+        btnOrdenar = new javax.swing.JButton();
+        btnBuscar = new javax.swing.JButton();
+        lblID = new javax.swing.JLabel();
+        txtID = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI Historic", 1, 24)); // NOI18N
-        jLabel1.setText("Cita");
+        lblMascota.setText("Mascota:");
 
-        jLabel2.setText("Seleccione la fecha para la próxima cita: ");
+        jcbMascota.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mascota" }));
+
+        lblConsultorio.setText("Consultorio:");
+
+        jcbConsultorio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Consultorio" }));
+
+        lblFecha.setText("Fecha:");
+
+        tblCita.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Mascota", "Consultorio", "Fecha"
+            }
+        ));
+        jScrollPane1.setViewportView(tblCita);
+
+        btnAgregar.setText("Agregar");
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarActionPerformed(evt);
+            }
+        });
+
+        btnEditar.setText("Editar");
+        btnEditar.setEnabled(false);
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
+
+        btnEliminar.setText("Eliminar");
+        btnEliminar.setEnabled(false);
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
+
+        btnOrdenar.setText("Ordenar");
+        btnOrdenar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOrdenarActionPerformed(evt);
+            }
+        });
+
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
+
+        lblID.setText("ID:");
+
+        txtID.setEnabled(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -42,32 +122,256 @@ public class VentanaCita extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 78, Short.MAX_VALUE))
-                    .addComponent(jSeparator1))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnOrdenar, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lblID)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblMascota)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jcbMascota, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblConsultorio)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jcbConsultorio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblFecha)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtFecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jcbMascota, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblMascota)
+                        .addComponent(jcbConsultorio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblConsultorio)
+                        .addComponent(lblFecha)
+                        .addComponent(lblID)
+                        .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAgregar)
+                    .addComponent(btnEditar)
+                    .addComponent(btnEliminar)
+                    .addComponent(btnOrdenar)
+                    .addComponent(btnBuscar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void validarCita()throws StringException,IntegerException,IDsException{
+        try{
+        masc=jcbMascota.getSelectedItem().toString();
+        if(masc.equals("Mascota")){
+            throw new StringException("Falta ingresar una mascota");
+        }
+        }catch (StringException e){
+            lblMascota.setForeground(Color.red);
+            jcbMascota.requestFocus();
+            throw e;
+        }
+        try{
+        con=Integer.parseInt(jcbConsultorio.getSelectedItem().toString());
+        if(masc.equals("Consultorio")){
+            throw new StringException("Falta ingresar el Consultorio");
+        }
+        }catch (StringException e){
+            lblConsultorio.setForeground(Color.red);
+            jcbConsultorio.requestFocus();
+            throw e;
+        }
+    }
+    
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+        try{
+            ID++;
+            validarCita();
+            //String mascota, int consultorio, int ID, Date fecha
+            C[c++]=new Cita(masc,con,ID,Fecha);
+            Object O[]=new Object[4];
+            O[0]=ID;
+            O[1]=masc;
+            O[2]=con;
+            O[3]=Fecha;
+            m.addRow(O);
+            jcbMascota.setSelectedIndex(0);
+            txtFecha.setDate(null);
+            jcbConsultorio.setSelectedIndex(0);
+            controlador.guardar("Cita",C);
+        }catch (IntegerException | NumberFormatException | IDsException | StringException e){
+            showMessageDialog(this,e.getMessage());
+        }
+    }//GEN-LAST:event_btnAgregarActionPerformed
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        try{
+            validarCita();
+            masc=jcbMascota.getSelectedItem().toString();
+            C[pos].setMascota(masc);
+            m.setValueAt(masc,pos,1);
+            con=Integer.parseInt(jcbConsultorio.getSelectedItem().toString());
+            C[pos].setConsultorio(con);
+            m.setValueAt(masc,pos,2);
+            Fecha=txtFecha.getDate();
+            C[pos].setFecha(Fecha);
+            m.setValueAt(Fecha,pos,3);
+            controlador.guardar("CITA",C);
+        }catch(IntegerException | NumberFormatException | IDsException | StringException e){
+            showMessageDialog(this,e.getMessage());
+        }
+        btnEditar.setEnabled(false);
+        btnEliminar.setEnabled(false); 
+    }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        if (showConfirmDialog(this, "Se borrará el renglón, ¿proceder?") == 0) {
+            m.removeRow(pos); // pos, pues es la posicion de la que se habla, se borra en la tabla
+            for (int i = 0; i < c; i++) {
+                C[i] = C[i + 1]; // se recorreran en el arreglo
+            }
+            c--; //se decrementa pues se eliminó un renglon
+            controlador.guardar("CITA",C); //para guardarlo en el archivo
+            txtFecha.setDate(null);
+            jcbMascota.setSelectedItem(0);
+            jcbConsultorio.setSelectedItem(0);
+            btnEditar.setEnabled(false);
+            btnEliminar.setEnabled(false);
+        }
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void btnOrdenarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrdenarActionPerformed
+        OrdenaIDs();
+        llenaTabla();
+    }//GEN-LAST:event_btnOrdenarActionPerformed
+
+    private void OrdenaIDs(){
+        int n=c;
+        for(int p=1;p<n;p++){//pasadas
+            for(int i=0;i<n-p;i++){
+                if(C[i].getID()>C[i+1].getID()){
+                    Cita c=new Cita();
+                    c=C[i];
+                    C[i]=C[i+1];
+                    C[i+1]=c;
+                }//if
+            }//for
+        }//for
+    }
+    
+    public void llenaTabla(){
+        for(int i=0;i<in;i++){
+            m.setValueAt(C[i].getID(),i,0);
+            m.setValueAt(C[i].getMascota(),i,1);
+            m.setValueAt(C[i].getConsultorio(),i,2);
+            m.setValueAt(C[i].getFecha(),i,3);
+        }
+    }
+    
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        txtID.setEnabled(true);
+        txtID.requestFocus();
+        try{
+            int IDA=Integer.parseInt(txtID.getText());
+        pos=buscarCita(IDA,C);
+        if(pos!=-1){
+            txtID.setText(C[pos].getID()+"");
+            jcbMascota.setSelectedItem(C[pos].getMascota());
+            jcbConsultorio.setSelectedItem(C[pos].getConsultorio()+"");
+            txtFecha.setDate(C[pos].getFecha());
+            btnEditar.setEnabled(true);
+            btnEliminar.setEnabled(true);
+        }else{
+            showMessageDialog(this,"Ese Articulo no se encuentra registrada");
+        }
+        }catch(NumberFormatException e){
+            showMessageDialog(this,"Falta ingresar el ID");
+            lblID.setForeground(Color.red);
+            txtID.requestFocus();
+        }
+        txtID.setEnabled(false);
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    public int buscarCita(int ID,Cita C[]){
+        for (int i = 0; i < c; i++) {
+            if(ID==C[i].getID()){
+                return i;
+            }
+        }
+        return -1;
+    }
+    
+    private void leerMascotas() {
+        try {
+            FileInputStream flujoBytes = new FileInputStream("MASCOTAS.VET"); //flujo de Bytes
+            ObjectInputStream fce = new ObjectInputStream(flujoBytes); //flujo de objetos
+            M = (Mascota[]) fce.readObject();
+
+            // Agregar los clientes al combo box
+            for (Mascota mascota : M) {
+                if (mascota == null) {
+                    return; //si el renglon que quiere agregar está vacío, no lo agregará y no marcará error
+                }
+                String item = mascota.getNombre()+"";
+                jcbMascota.addItem(item);
+            }
+
+        } catch (FileNotFoundException ex) {
+            showMessageDialog(this, "Error el archivo no se encontro");
+        } catch (IOException ex) {
+            showMessageDialog(this, "Error");
+        } catch (ClassNotFoundException ex) {
+            showMessageDialog(this, "Error");
+        }
+    }
+    
+    private void leerConsultorios() {
+        try {
+            FileInputStream flujoBytes = new FileInputStream("CONSULTORIOS.VET"); //flujo de Bytes
+            ObjectInputStream fce = new ObjectInputStream(flujoBytes); //flujo de objetos
+            Co = (Consultorio[]) fce.readObject();
+
+            // Agregar los clientes al combo box
+            for (Consultorio consultorio : Co) {
+                if (consultorio == null) {
+                    return; //si el renglon que quiere agregar está vacío, no lo agregará y no marcará error
+                }
+                String item = consultorio.getCons()+"";
+                jcbConsultorio.addItem(item);
+            }
+
+        } catch (FileNotFoundException ex) {
+            showMessageDialog(this, "Error el archivo no se encontro");
+        } catch (IOException ex) {
+            showMessageDialog(this, "Error");
+        } catch (ClassNotFoundException ex) {
+            showMessageDialog(this, "Error");
+        }
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -102,11 +406,29 @@ public class VentanaCita extends javax.swing.JFrame {
             }
         });
     }
-
+    private Cita C[]=new Cita[30];
+    private Date Fecha;
+    private int ID,con,pos=-1,in=0,c=0;
+    private String masc;
+    private DefaultTableModel m;
+    private Mascota M[] = new Mascota[30];
+    private Consultorio Co[] = new Consultorio[30];
+    Controller controlador = new Controller();
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.toedter.calendar.JDateChooser jDateChooser1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JButton btnAgregar;
+    private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnEditar;
+    private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnOrdenar;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JComboBox<String> jcbConsultorio;
+    private javax.swing.JComboBox<String> jcbMascota;
+    private javax.swing.JLabel lblConsultorio;
+    private javax.swing.JLabel lblFecha;
+    private javax.swing.JLabel lblID;
+    private javax.swing.JLabel lblMascota;
+    private javax.swing.JTable tblCita;
+    private com.toedter.calendar.JDateChooser txtFecha;
+    private javax.swing.JTextField txtID;
     // End of variables declaration//GEN-END:variables
 }

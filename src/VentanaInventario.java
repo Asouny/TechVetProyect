@@ -24,7 +24,12 @@ public class VentanaInventario extends javax.swing.JFrame {
         initComponents();
         m=(DefaultTableModel) tblInventario.getModel();
         leerArticulos();
+        leerInventario();
         //leerArticulos();
+    }
+    
+    private void leerInventario(){
+        controlador.leer("INVENTARIO", I);
     }
     private void leerArticulos() {
         try {
@@ -325,7 +330,7 @@ public class VentanaInventario extends javax.swing.JFrame {
             validarInventario();
             //int Existencias, int ID, String Nombre, String Proveedor, String Clasificacion
             I[in++]=new Inventario(ex,ID,name,prov,cla);
-            Object O[]=new Object[9];
+            Object O[]=new Object[5];
             O[0]=ID;
             O[1]=name;
             O[2]=prov;
