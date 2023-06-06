@@ -10,15 +10,15 @@ import java.io.Serializable;
  *
  * @author orozc
  */
-public class Articulos implements Serializable{
+public class Articulo implements Serializable{
     private String Nombre,Descripcion,Proveedor;
     private int ID;
     private double precio;
 
-    public Articulos() {
+    public Articulo() {
     }
 
-    public Articulos(String Nombre, String Descripcion, String Proveedor, int ID, double precio) {
+    public Articulo(String Nombre, String Descripcion, String Proveedor, int ID, double precio) {
         this.Nombre = Nombre;
         this.Descripcion = Descripcion;
         this.Proveedor = Proveedor;

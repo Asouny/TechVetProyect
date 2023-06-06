@@ -35,10 +35,10 @@ public class VentanaInventario extends javax.swing.JFrame {
         try {
             FileInputStream flujoBytes = new FileInputStream("ARTICULOS.VET"); //flujo de Bytes
             ObjectInputStream fce = new ObjectInputStream(flujoBytes); //flujo de objetos
-            A = (Articulos[]) fce.readObject();
+            A = (Articulo[]) fce.readObject();
 
             // Agregar los clientes al combo box
-            for (Articulos articulos : A) {
+            for (Articulo articulos : A) {
                 if (articulos == null) {
                     return; //si el renglon que quiere agregar está vacío, no lo agregará y no marcará error
                 }
@@ -407,7 +407,7 @@ public class VentanaInventario extends javax.swing.JFrame {
     private String name,prov,cla;
     private DefaultTableModel m;
     private Inventario B[] = new Inventario[30];
-    private Articulos A[] = new Articulos[30];
+    private Articulo A[] = new Articulo[30];
     Controller controlador = new Controller();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;

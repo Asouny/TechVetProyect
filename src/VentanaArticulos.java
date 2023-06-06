@@ -38,7 +38,7 @@ public class VentanaArticulos extends javax.swing.JFrame {
             FileInputStream fb= new FileInputStream("ARTICULOS.VET");//flujo de Bytes
             fce=new ObjectInputStream(fb);//flujo de Objectos
             //String reg=""; TAREA UNA CONDICION PARA QUE NO MARQUE ERROR AL FINALIZAR EL ERROR
-            A=(Articulos[]) fce.readObject();
+            A=(Articulo[]) fce.readObject();
             Object R[]=new Object[10];
             for (int i = 0; i < A.length; i++) {
                 if(A[i]==null)return;
@@ -56,7 +56,7 @@ public class VentanaArticulos extends javax.swing.JFrame {
         }
     }
     
-    public int buscarArticulo(int id,Articulos A[]){
+    public int buscarArticulo(int id,Articulo A[]){
         for (int i = 0; i < a; i++) {
             if(id==A[i].getID()){
                 return i;
@@ -309,7 +309,7 @@ public class VentanaArticulos extends javax.swing.JFrame {
         for(int p=1;p<n;p++){//pasadas
             for(int i=0;i<n-p;i++){
                 if(A[i].getID()>A[i+1].getID()){
-                    Articulos a=new Articulos();
+                    Articulo a=new Articulo();
                     a=A[i];
                     A[i]=A[i+1];
                     A[i+1]=a;
@@ -333,7 +333,7 @@ public class VentanaArticulos extends javax.swing.JFrame {
             validarID();
             validarArticulos();
             //String Nombre, String Descripcion, String Proveedor, int ID, double precio
-            A[a++]=new Articulos(name,desc,prov,ID,precio);
+            A[a++]=new Articulo(name,desc,prov,ID,precio);
             Object O[]=new Object[5];
             O[0]=ID;
             O[1]=name;
@@ -496,7 +496,7 @@ public class VentanaArticulos extends javax.swing.JFrame {
         });
     }
     
-    private Articulos A[]=new Articulos[30];
+    private Articulo A[]=new Articulo[30];
     
     private int ID,min,max,pos=-1,a=0,can=0;
     private String name,desc,prov,sec,IDB;
