@@ -251,12 +251,11 @@ public class VentanaConsultorioRegistrar extends javax.swing.JFrame {
             showMessageDialog(this, "¿Está disponible?");
             jcbDisponibilidad.requestFocus();
         } else {
-            //ValidarCliente();
+           
 
             Con[c++] = new Consultorio(eq, capac, id, dispon);
-            System.out.println(new Consultorio(eq, capac, id, dispon).toString());
-
-            //m.addRow(O);
+            
+           
             controlador.guardar("Consultorios", Con);
             id++;
             txtID.setText(id+"");

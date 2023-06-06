@@ -9,8 +9,6 @@ import java.io.ObjectOutputStream;
 import static javax.swing.JOptionPane.*;
 import javax.swing.table.DefaultTableModel;
 
-
-
 /**
  *
  * @author orozc
@@ -25,7 +23,7 @@ public class VentanaMascotas extends javax.swing.JFrame {
         m = (DefaultTableModel) tblMascotas.getModel();
         leerMascotas();
         leerClientes();
-       
+
         id++;
     }
 
@@ -276,7 +274,7 @@ public class VentanaMascotas extends javax.swing.JFrame {
     }
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        //capturar la curp
+        
         int boton = showConfirmDialog(this, "Seguro que quieres borrar?");
         if (boton == 0) {
             m.removeRow(pos);
@@ -359,15 +357,9 @@ public class VentanaMascotas extends javax.swing.JFrame {
         if (b == true) {
             //String nombre, String especie, String sexo, String cliente, int id, int edad
             M[a++] = new Mascota(name, espe, sex, clie, id, edad);
-            Object O[] = new Object[6];
-            O[0] = id;
-            O[1] = name;
-            O[2] = espe;
-            O[3] = edad;
-            O[4] = sex;
-            O[5] = clie;
-            m.addRow(O);
-            guardarArray();
+            
+            
+            controlador.guardar("Mascotas", M);
             txtNombre.setText("");
             txtEdad.setText("");
             jcbSexo.setSelectedIndex(0);
@@ -418,74 +410,49 @@ public class VentanaMascotas extends javax.swing.JFrame {
     }
 
     private void leerClientes() {
-        try {
-            FileInputStream flujoBytes = new FileInputStream("Clientes.obj"); //flujo de Bytes
-            fce = new ObjectInputStream(flujoBytes); //flujo de objetos
-            C = (Cliente[]) fce.readObject();
 
-            // Agregar los clientes al combo box
-            for (Cliente cliente : C) {
-                if (cliente == null) {
-                    return; //si el renglon que quiere agregar está vacío, no lo agregará y no marcará error
-                }
-                String item = cliente.getId() + " - " + cliente.getNombre();
-                jcbCliente.addItem(item);
+        C = (Cliente[]) controlador.leer("Clientes", Cliente.class);
+
+        // Agregar los clientes al combo box
+        for (Cliente cliente : C) {
+            if (cliente == null) {
+                return; //si el renglon que quiere agregar está vacío, no lo agregará y no marcará error
             }
+            String item = cliente.getId() + " - " + cliente.getNombre();
+            jcbCliente.addItem(item);
 
-        } catch (FileNotFoundException ex) {
-            showMessageDialog(this, "Error el archivo no se encontro");
-        } catch (IOException ex) {
-            showMessageDialog(this, "Error");
-        } catch (ClassNotFoundException ex) {
-            showMessageDialog(this, "Error");
         }
-    }
-
-    private void guardarArray() {
-
-        try {
-            //se abre el flujo y se manda el metodo para guardar
-            FileOutputStream flujoBytes = new FileOutputStream("Mascotas.obj");
-            fcs = new ObjectOutputStream(flujoBytes);
-            fcs.writeObject(M);
-            fcs.flush();
-        } catch (IOException ex) {
-            showMessageDialog(this, "Error");
-        }
-
     }
 
     private void leerMascotas() {
-        try {
-            FileInputStream flujoBytes = new FileInputStream("Mascotas.obj"); //flujo de Bytes
-            fce = new ObjectInputStream(flujoBytes); //flujo de objetos
-            M = (Mascota[]) fce.readObject();
-            Object R[] = new Object[6];
-            //ciclo que si se cumple, manda a agregar a la tabla para cuando inicie el programa de nuevo
-            for (int i = 0; i < M.length; i++) {
-                if (M[i] == null) {
-                    return; //si el renglon que quiere agregar está vacío, no lo agregará y no marcará error
-                }
-                R[0] = M[i].getId();
-                R[1] = M[i].getNombre();
-                R[2] = M[i].getEspecie();
-                R[3] = M[i].getEdad();
-                R[4] = M[i].getSexo();
-                
-                int clienteEncontradoID = buscaCliente(Integer.parseInt(M[i].getCliente()),C);
-                
-                R[5] = C[clienteEncontradoID].toString();
-                
-                m.addRow(R);
-                a++;
-            }
 
-        } catch (FileNotFoundException ex) {
-            showMessageDialog(this, "Error el archivo no se encontro");
-        } catch (IOException ex) {
-            showMessageDialog(this, "Error");
-        } catch (ClassNotFoundException ex) {
-            showMessageDialog(this, "Error");
+        M = (Mascota[]) controlador.leer("Mascotas", Mascota.class);
+        Object R[] = new Object[6];
+        m.setRowCount(0);
+        //ciclo que si se cumple, manda a agregar a la tabla para cuando inicie el programa de nuevo
+        for (int i = 0; i < M.length; i++) {
+            if (M[i] == null) {
+                return; //si el renglon que quiere agregar está vacío, no lo agregará y no marcará error
+            }
+            id = M[i].getId();
+            R[1] = M[i].getNombre();
+            R[2] = M[i].getEspecie();
+            R[3] = M[i].getEdad();
+            R[4] = M[i].getSexo();
+
+            int espacioBlancoIndex = M[i].getCliente().indexOf(" ");
+
+            String clienteNumero = M[i].getCliente().substring(0, espacioBlancoIndex);
+            
+            int clienteNumeroEntero = Integer.parseInt(clienteNumero);
+
+           if(C[i]!= null){
+                   int clienteEncontradoID = buscaCliente(clienteNumeroEntero, C);
+            R[5] = C[clienteEncontradoID].toString().substring(0, 2);
+           }else{
+            m.addRow(R);
+            a++;
+        }
         }
     }
 
@@ -501,7 +468,7 @@ public class VentanaMascotas extends javax.swing.JFrame {
         return -1; //Por si no los encontró
     }
 
-     public int buscaCliente(int ca, Cliente A[]) {
+    public int buscaCliente(int ca, Cliente A[]) {
         for (int i = 0; i < A.length; i++) {
             if (ca == C[i].getId()) {
                 if (C[i] == null) {
@@ -512,7 +479,7 @@ public class VentanaMascotas extends javax.swing.JFrame {
         }
         return -1; //Por si no los encontró
     }
-     
+
     /**
      * @param args the command line arguments
      */
@@ -558,12 +525,8 @@ public class VentanaMascotas extends javax.swing.JFrame {
     private DefaultTableModel m;
     private int c = 0;
 
-    //nuevos agregados con lo de archivos
-    private ObjectOutputStream fcs; // flujo de objetos de escritura
-    private ObjectInputStream fce; //flujo de objetos de lectura
-
     private Cliente C[] = new Cliente[30];
-
+    Controller controlador = new Controller();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnBuscar;
