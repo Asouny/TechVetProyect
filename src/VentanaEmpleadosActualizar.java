@@ -35,6 +35,15 @@ public class VentanaEmpleadosActualizar extends javax.swing.JFrame {
         txtEdad.setText(empleadoUpdate.getEdad() + "");
         txtSueldo.setText(empleadoUpdate.getSueldo() + "");
         txtID.setText(empleadoUpdate.getID() + "");
+
+        E = new Empleado(
+                jcbPuesto.getSelectedItem().toString(),
+                Integer.parseInt(txtSueldo.getText()),
+                txtNombre.getText(),
+                jcbSexo.getSelectedItem().toString(),
+                Integer.parseInt(txtEdad.getText()),
+                Integer.parseInt(txtID.getText())
+        );
     }
 
     /**
