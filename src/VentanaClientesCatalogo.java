@@ -166,7 +166,7 @@ public class VentanaClientesCatalogo extends javax.swing.JFrame {
             m.removeRow(clienteEDITPOS); // pos, pues es la posicion de la que se habla, se borra en la tabla
             eliminarCliente(clienteEDITPOS);
             guardarArray(); //para guardarlo en el archivo
-            //txtID.setText("");
+            
 
             btnEditar.setEnabled(false);
             btnEliminar.setEnabled(false);

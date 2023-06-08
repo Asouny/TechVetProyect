@@ -54,6 +54,9 @@ public class PrincipalPage extends javax.swing.JFrame {
         jMenu9 = new javax.swing.JMenu();
         jMenuItem13 = new javax.swing.JMenuItem();
         jMenuItem14 = new javax.swing.JMenuItem();
+        jMenu10 = new javax.swing.JMenu();
+        jMenuItem15 = new javax.swing.JMenuItem();
+        jMenuItem16 = new javax.swing.JMenuItem();
 
         jMenuItem2.setText("jMenuItem2");
 
@@ -202,6 +205,26 @@ public class PrincipalPage extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu9);
 
+        jMenu10.setText("Diagnosticos");
+
+        jMenuItem15.setText("Registrar diagnóstico");
+        jMenuItem15.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem15ActionPerformed(evt);
+            }
+        });
+        jMenu10.add(jMenuItem15);
+
+        jMenuItem16.setText("Catálogo de diagnósticos");
+        jMenuItem16.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem16ActionPerformed(evt);
+            }
+        });
+        jMenu10.add(jMenuItem16);
+
+        jMenuBar1.add(jMenu10);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -286,6 +309,16 @@ frame1.setVisible(true);
         frame.setVisible(true);
     }//GEN-LAST:event_jMenuItem12ActionPerformed
 
+    private void jMenuItem15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem15ActionPerformed
+        VentanaDiagnosticoRegistrar1 frame1 = new VentanaDiagnosticoRegistrar1();
+        frame1.setVisible(true);
+    }//GEN-LAST:event_jMenuItem15ActionPerformed
+
+    private void jMenuItem16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem16ActionPerformed
+        VentanaDiagnosticoCatalogo frame1 = new VentanaDiagnosticoCatalogo();
+        frame1.setVisible(true);
+    }//GEN-LAST:event_jMenuItem16ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -327,6 +360,7 @@ frame1.setVisible(true);
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu10;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
@@ -344,6 +378,8 @@ frame1.setVisible(true);
     private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem13;
     private javax.swing.JMenuItem jMenuItem14;
+    private javax.swing.JMenuItem jMenuItem15;
+    private javax.swing.JMenuItem jMenuItem16;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;

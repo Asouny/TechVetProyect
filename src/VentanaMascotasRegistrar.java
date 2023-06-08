@@ -223,8 +223,7 @@ public class VentanaMascotasRegistrar extends javax.swing.JFrame {
             return b = false;
         }
 
-        //for (Cliente cliente : VentanaClientes.C ) {
-        //jcbCliente.addItem(String.valueOf(cliente.getId()));
+        
         String clientePedazo = jcbCliente.getSelectedItem().toString();
 
         clie = clientePedazo.split(" - ")[0];

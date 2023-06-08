@@ -9,22 +9,31 @@ import java.util.Date;
  * @author gdlup
  */
 public class Diagnostico implements Serializable{
-  private String descripcion, fecha;
-  private int mascotaID;
+  private String descripcion, mascota;
+  private Date fecha;
+  private int id;
 
-    public int getMascotaID() {
-        return mascotaID;
+    public int getId() {
+        return id;
     }
 
-    public void setMascotaID(int mascotaID) {
-        this.mascotaID = mascotaID;
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getMascota() {
+        return mascota;
+    }
+
+    public void setMascotaID(String mascota) {
+        this.mascota = mascota;
     }
  
 
     public Diagnostico() {
     }
 
-    public Diagnostico(String descripcion, String fecha) {
+    public Diagnostico(String descripcion, Date fecha, String mascota) {
         this.descripcion = descripcion;
         this.fecha = fecha;
     }
@@ -37,11 +46,11 @@ public class Diagnostico implements Serializable{
         this.descripcion = descripcion;
     }
 
-    public String getFecha() {
+    public Date getFecha() {
         return fecha;
     }
 
-    public void setFecha(String fecha) {
+    public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
   
