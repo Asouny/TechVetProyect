@@ -171,9 +171,6 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Consultar inventario"/>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem18ActionPerformed"/>
-              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>

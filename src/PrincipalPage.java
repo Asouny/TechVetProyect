@@ -170,11 +170,6 @@ public class PrincipalPage extends javax.swing.JFrame {
 
         jMenuItem18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/PrincipalPageComponent/src/inventario_1.png"))); // NOI18N
         jMenuItem18.setText("Consultar inventario");
-        jMenuItem18.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem18ActionPerformed(evt);
-            }
-        });
         jMenu2.add(jMenuItem18);
 
         jMenuBar1.add(jMenu2);
@@ -341,11 +336,6 @@ frame1.setVisible(true);
         VentanaInventarioRegistrar frame = new VentanaInventarioRegistrar();
         frame.setVisible(true);
     }//GEN-LAST:event_jMenuItem17ActionPerformed
-
-    private void jMenuItem18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem18ActionPerformed
-         VentanaInventarioCatalogo frame = new VentanaInventarioCatalogo();
-        frame.setVisible(true);
-    }//GEN-LAST:event_jMenuItem18ActionPerformed
 
     /**
      * @param args the command line arguments

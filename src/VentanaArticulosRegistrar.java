@@ -26,8 +26,8 @@ public class VentanaArticulosRegistrar extends javax.swing.JFrame {
      */
     public VentanaArticulosRegistrar() {
         initComponents();
-        leerArticulos();
         leerProveedores();
+        leerArticulos();
         this.setLocationRelativeTo(null);
 
         articuloID++;
@@ -35,7 +35,7 @@ public class VentanaArticulosRegistrar extends javax.swing.JFrame {
     }
 
     private void leerArticulos() {
-        A = controlador.leer("Articulo", Articulo.class);
+        A = controlador.leer("Articulos", Articulo.class);
         Object R[] = new Object[4];
         for (int i = 0; i < A.length; i++) {
             if (A[i] == null) {
