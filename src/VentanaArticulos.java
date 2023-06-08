@@ -434,10 +434,10 @@ public class VentanaArticulos extends javax.swing.JFrame {
         try {
             FileInputStream flujoBytes = new FileInputStream("PROVEEDORES.VET"); //flujo de Bytes
             fce = new ObjectInputStream(flujoBytes); //flujo de objetos
-            P = (Proveedores[]) fce.readObject();
+            P = (Proveedor[]) fce.readObject();
 
             // Agregar los clientes al combo box
-            for (Proveedores proveedor : P) {
+            for (Proveedor proveedor : P) {
                 if (proveedor == null) {
                     return; //si el renglon que quiere agregar está vacío, no lo agregará y no marcará error
                 }
@@ -505,7 +505,7 @@ public class VentanaArticulos extends javax.swing.JFrame {
     private File archivo = new File("ARTICULOS.VET");
     private ObjectOutputStream fcs;//flujo de objetos de escritura
     private ObjectInputStream fce;//flujo de objetos de lectura
-    private Proveedores P[] = new Proveedores[30];
+    private Proveedor P[] = new Proveedor[30];
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnBuscar;

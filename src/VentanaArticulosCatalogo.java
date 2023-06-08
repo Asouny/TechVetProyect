@@ -1,14 +1,4 @@
 
-import java.awt.Color;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import static javax.swing.JOptionPane.showConfirmDialog;
-import static javax.swing.JOptionPane.showMessageDialog;
 import javax.swing.table.DefaultTableModel;
 
 /*
@@ -36,7 +26,7 @@ public class VentanaArticulosCatalogo extends javax.swing.JFrame {
     
     private void leerArticulos(){
         
-            A= controlador.leer("Articulos", Articulos.class);
+            A= controlador.leer("Articulos", Articulo.class);
             Object R[]=new Object[5];
             for (int i = 0; i < A.length; i++) {
                 if(A[i]==null)return;
@@ -50,7 +40,7 @@ public class VentanaArticulosCatalogo extends javax.swing.JFrame {
             }
     }
     
-    public int buscarArticulo(int id,Articulos A[]){
+    public int buscarArticulo(int id,Articulo A[]){
         for (int i = 0; i < a; i++) {
             if(id==A[i].getID()){
                 return i;
@@ -200,14 +190,14 @@ public class VentanaArticulosCatalogo extends javax.swing.JFrame {
         });
     }
     
-    private Articulos A[]=new Articulos[30];
+    private Articulo A[]=new Articulo[30];
     
     private int ID,min,max,pos=-1,a=0,can=0;
     private String name,desc,prov,sec,IDB;
     private double precio;
     private DefaultTableModel m;
     
-    private Proveedores P[] = new Proveedores[30];
+    private Proveedor P[] = new Proveedor[30];
     
     Controller controlador = new Controller();
     // Variables declaration - do not modify//GEN-BEGIN:variables

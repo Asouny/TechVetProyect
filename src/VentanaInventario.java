@@ -29,7 +29,21 @@ public class VentanaInventario extends javax.swing.JFrame {
     }
     
     private void leerInventario(){
-        controlador.leer("INVENTARIO", I);
+        I = (Inventario[]) controlador.leer("Inventario", Inventario.class);
+
+        // Agregar los clientes al combo box
+        for (Inventario articulos : I) {
+            if (articulos == null) {
+                return; //si el renglon que quiere agregar está vacío, no lo agregará y no marcará error
+            }
+            Object O[] = new Object[5];
+            O[0] = articulos.getID();
+            O[1] = articulos.getNombre();
+            O[2] = articulos.getProveedor();
+            O[3] = articulos.getExistencias();
+            O[4] = articulos.getClasificacion();
+            m.addRow(O);
+        }
     }
     private void leerArticulos() {
         try {
@@ -329,7 +343,7 @@ public class VentanaInventario extends javax.swing.JFrame {
             validarID();
             validarInventario();
             //int Existencias, int ID, String Nombre, String Proveedor, String Clasificacion
-            I[in++]=new Inventario(ex,ID,name,prov,cla);
+            I[in++]=new Inventario(name, ex,ID);
             Object O[]=new Object[5];
             O[0]=ID;
             O[1]=name;

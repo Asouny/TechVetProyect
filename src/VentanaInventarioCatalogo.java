@@ -21,40 +21,76 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author orozc
  */
-public class VentanaProveedoresCatalogo extends javax.swing.JFrame {
+public class VentanaInventarioCatalogo extends javax.swing.JFrame {
 
     /**
      * Creates new form VentanaProveedores
      */
-    public VentanaProveedoresCatalogo() {
+    public VentanaInventarioCatalogo() {
         initComponents();
-        m = (DefaultTableModel) tblProveedores.getModel();
-        leerProveedores();
+        m=(DefaultTableModel) tblInventario.getModel();
+        leerInventario();
+        leerArticulos();
     }
 
-    private void leerProveedores() {
+    private void leerInventario(){
+        I = (Inventario[]) controlador.leer("Inventario", Inventario.class);
 
-        P = (Proveedor[]) controlador.leer("Proveedores", Proveedor.class);
-        Object R[] = new Object[5];
-        m.setRowCount(0);
-
-        for (int i = 0; i < P.length; i++) {
-            if (P[i] == null) {
-                return;
+        // Agregar los clientes al combo box
+        for (Inventario articulos : I) {
+            if (articulos == null) {
+                return; //si el renglon que quiere agregar está vacío, no lo agregará y no marcará error
             }
-            R[0] = P[i].getID();
-            R[1] = P[i].getNombre();
-            R[2] = P[i].getRFC();
-            R[3] = P[i].getTelefono();
-            R[4] = P[i].getCorreo();
-            m.addRow(R);
-            pr++;
+            Object O[] = new Object[5];
+            O[0] = articulos.getID();
+            O[1] = articulos.getNombre();
+            O[2] = articulos.getProveedor();
+            O[3] = articulos.getExistencias();
+            O[4] = articulos.getClasificacion();
+            m.addRow(O);
         }
     }
+    private void leerArticulos() {
+        try {
+            FileInputStream flujoBytes = new FileInputStream("ARTICULOS.VET"); //flujo de Bytes
+            ObjectInputStream fce = new ObjectInputStream(flujoBytes); //flujo de objetos
+            A = (Articulo[]) fce.readObject();
 
-    public int buscarProveedores(int id, Proveedor E[]) {
-        for (int i = 0; i < pr; i++) {
-            if (id == P[i].getID()) {
+            // Agregar los clientes al combo box
+            for (Articulo articulos : A) {
+                if (articulos == null) {
+                    return; //si el renglon que quiere agregar está vacío, no lo agregará y no marcará error
+                }
+                name=articulos.getNombre();
+                prov=articulos.getProveedor();
+            }
+
+        } catch (FileNotFoundException ex) {
+            showMessageDialog(this, "Error el archivo no se encontro");
+        } catch (IOException ex) {
+            showMessageDialog(this, "Error");
+        } catch (ClassNotFoundException ex) {
+            showMessageDialog(this, "Error");
+        }
+    }
+    public int buscaInventario(int inv, Inventario I[]) {
+        for (int i = 0; i < I.length; i++) {
+            if (I[i] == null) {
+                return -1;
+            }
+            if (inv == this.I[i].getID()) {
+                if (this.I[i] == null) {
+                    return -1;
+                }
+                return i; //Return el arreglo en esa posición
+            }//Para que compare id (parámetro) con id del arreglo
+        }
+        return -1; //Por si no los encontró
+    }
+    
+    public int buscarInventarios(int id,Inventario I[]){
+        for (int i = 0; i < in; i++) {
+            if(id==I[i].getID()){
                 return i;
             }
         }
@@ -73,11 +109,11 @@ public class VentanaProveedoresCatalogo extends javax.swing.JFrame {
         btnEditar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         btnBuscar = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblProveedores = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         txtSearch = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblInventario = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -104,23 +140,8 @@ public class VentanaProveedoresCatalogo extends javax.swing.JFrame {
             }
         });
 
-        tblProveedores.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "ID", "Nombre", "RFC", "Telefono", "Correo Electronico"
-            }
-        ));
-        tblProveedores.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblProveedoresMouseClicked(evt);
-            }
-        });
-        jScrollPane1.setViewportView(tblProveedores);
-
         jLabel1.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
-        jLabel1.setText("Catalogo de Proveedores");
+        jLabel1.setText("Inventario");
 
         txtSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -133,19 +154,21 @@ public class VentanaProveedoresCatalogo extends javax.swing.JFrame {
             }
         });
 
+        tblInventario.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Nombre", "Proveedor", "Existencias", "Clasificacion"
+            }
+        ));
+        jScrollPane2.setViewportView(tblInventario);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(174, 174, 174))
             .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 555, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -157,8 +180,13 @@ public class VentanaProveedoresCatalogo extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(txtSearch)
                         .addGap(18, 18, 18)
-                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 555, Short.MAX_VALUE))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(237, 237, 237))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -171,9 +199,9 @@ public class VentanaProveedoresCatalogo extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBuscar))
-                .addGap(37, 37, 37)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 319, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnEditar)
                     .addComponent(btnEliminar))
@@ -186,9 +214,9 @@ public class VentanaProveedoresCatalogo extends javax.swing.JFrame {
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
 
-        int proveedorEDITPOS = buscaProveedor(proveedorSelectedID, P);
+        int inventarioEDITPOS = buscaInventario(inventarioSelectedID, I);
 
-        VentanaProveedoresActualizar frame1 = new VentanaProveedoresActualizar(P[proveedorEDITPOS]);
+        VentanaInventarioActualizar frame1 = new VentanaInventarioActualizar(I[inventarioEDITPOS]);
 
         frame1.setVisible(true);
 
@@ -200,22 +228,21 @@ public class VentanaProveedoresCatalogo extends javax.swing.JFrame {
                 System.out.println("La ventana se cerró. Ejecutando código...");
                 // Aquí puedes colocar el código que deseas ejecutar
 
-                P[proveedorEDITPOS] = frame1.P;
-                controlador.guardar("Proveedores", P);
-                leerProveedores();
+                I[inventarioEDITPOS] = frame1.I;
+                controlador.guardar("Inventario", I);
+                leerInventario();
             }
         });
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        int clienteEDITPOS = buscaProveedor(proveedorSelectedID, P);
+        int clienteEDITPOS = buscaInventario(inventarioSelectedID, I);
 
         if (showConfirmDialog(this, "Se borrará el renglón, ¿proceder?") == 0) {
             m.removeRow(clienteEDITPOS); // pos, pues es la posicion de la que se habla, se borra en la tabla
             eliminar(clienteEDITPOS);
-            controlador.guardar("Proveedores", P); //para guardarlo en el archivo
+            controlador.guardar("Inventario", I); //para guardarlo en el archivo
             //txtID.setText("");
-
             btnEditar.setEnabled(false);
             btnEliminar.setEnabled(false);
         }
@@ -223,59 +250,44 @@ public class VentanaProveedoresCatalogo extends javax.swing.JFrame {
     public void eliminar(int posicion) {
 
         // Copiar los elementos antes de la posición
-        System.arraycopy(P, 0, P, 0, posicion);
+        System.arraycopy(I, 0, I, 0, posicion);
 
         // Copiar los elementos después de la posición
-        System.arraycopy(P, posicion + 1, P, posicion, P.length - posicion - 1);
+        System.arraycopy(I, posicion + 1, I, posicion, I.length - posicion - 1);
 
         // Asignar null al último elemento
-        P[P.length - 1] = null;
+        I[I.length - 1] = null;
 
-    }
-
-    public int buscaEmpleados(int ca, Proveedor E[]) {
-        for (int i = 0; i < E.length; i++) {
-            if (E[i] == null) {
-                return -1;
-            }
-            if (ca == this.P[i].getID()) {
-                if (this.P[i] == null) {
-                    return -1;
-                }
-                return i; //Return el arreglo en esa posición
-            }//Para que compare id (parámetro) con id del arreglo
-        }
-        return -1; //Por si no los encontró
     }
 
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
 
         if (txtSearch.getText().equals("")) {
-            leerProveedores();
+            leerInventario();
             return;
         } else {
             int id = Integer.parseInt(txtSearch.getText());
 
-            int proveedorPOS = buscaProveedor(id, P);
+            int inventarioPOS = buscaInventario(id, I);
 
-            if (proveedorPOS == -1) {
-                showMessageDialog(this, "proveedor no encontrado");
+            if (inventarioPOS == -1) {
+                showMessageDialog(this, "producto no encontrado");
 
             } else {
-                Proveedor ProveedorEncontrado = P[proveedorPOS];
+                Inventario InventarioEncontrado = I[inventarioPOS];
                 m.setRowCount(0);
 
                 Object R[] = new Object[5];
                 //ciclo que si se cumple, manda a agregar a la tabla para cuando inicie el programa de nuevo
 
-                R[0] = ProveedorEncontrado.getID();
-                R[1] = ProveedorEncontrado.getNombre();
-                R[2] = ProveedorEncontrado.getRFC();
-                R[3] = ProveedorEncontrado.getTelefono();
-                R[4] = ProveedorEncontrado.getCorreo();
+                R[0] = InventarioEncontrado.getID();
+                R[1] = InventarioEncontrado.getNombre();
+                R[2] = InventarioEncontrado.getProveedor();
+                R[3] = InventarioEncontrado.getExistencias();
+                R[4] = InventarioEncontrado.getClasificacion();
                 m.addRow(R);
-                pr++;
+                in++;
             }
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
@@ -284,29 +296,23 @@ public class VentanaProveedoresCatalogo extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtSearchActionPerformed
 
-    private void tblProveedoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProveedoresMouseClicked
-        proveedorSelectedID = obtenerIdProveedorSeleccionado();
-
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tblProveedoresMouseClicked
-
     private void txtSearchKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyTyped
 
         if (txtSearch.getText().equals("")) {
-            leerProveedores();
+            leerInventario();
             return;
         } 
         // TODO add your handling code here:
     }//GEN-LAST:event_txtSearchKeyTyped
 
-    private int obtenerIdProveedorSeleccionado() {
+    private int obtenerIdInventarioSeleccionado() {
         // Obtener el índice de la fila seleccionada en la tabla
-        int rowIndex = tblProveedores.getSelectedRow();
+        int rowIndex = tblInventario.getSelectedRow();
 
         // Verificar si hay una fila seleccionada
         if (rowIndex != -1) {
             // Obtener el valor del ID del cliente en la columna 0 (primera columna)
-            int idConsultorio = (int) tblProveedores.getValueAt(rowIndex, 0);
+            int idConsultorio = (int) tblInventario.getValueAt(rowIndex, 0);
 
             btnEditar.setEnabled(true);
             btnEliminar.setEnabled(true);
@@ -316,22 +322,6 @@ public class VentanaProveedoresCatalogo extends javax.swing.JFrame {
             return -1;
         }
     }
-
-    public int buscaProveedor(int ca, Proveedor E[]) {
-        for (int i = 0; i < E.length; i++) {
-            if (E[i] == null) {
-                return -1;
-            }
-            if (ca == this.P[i].getID()) {
-                if (this.P[i] == null) {
-                    return -1;
-                }
-                return i; //Return el arreglo en esa posición
-            }//Para que compare id (parámetro) con id del arreglo
-        }
-        return -1; //Por si no los encontró
-    }
-
     /**
      * @param args the command line arguments
      */
@@ -366,21 +356,21 @@ public class VentanaProveedoresCatalogo extends javax.swing.JFrame {
             }
         });
     }
-    private Proveedor P[] = new Proveedor[30];
-    private int pr, ID, pos = -1;
-    private String name, RFC, correo, tel;
+    private Inventario I[] = new Inventario[30];
+    private Articulo A[] = new Articulo[30];
+    private int ID,min,max,pos=-1,in=0,ex=0;
+    private String name,prov,cla;
     private DefaultTableModel m;
-
-    int proveedorSelectedID;
+    int inventarioSelectedID;
     Controller controlador = new Controller();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTable tblProveedores;
+    private javax.swing.JTable tblInventario;
     private javax.swing.JTextField txtSearch;
     // End of variables declaration//GEN-END:variables
 }

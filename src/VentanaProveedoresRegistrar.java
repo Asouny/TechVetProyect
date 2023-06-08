@@ -32,7 +32,7 @@ public class VentanaProveedoresRegistrar extends javax.swing.JFrame {
     }
 
     private void leerProveedores() {
-        P = (Proveedores[]) controlador.leer("Proveedores", Proveedores.class);
+        P = (Proveedor[]) controlador.leer("Proveedores", Proveedor.class);
         Object R[] = new Object[5];
         for (int i = 0; i < P.length; i++) {
             if (P[i] == null) {
@@ -45,7 +45,7 @@ public class VentanaProveedoresRegistrar extends javax.swing.JFrame {
         }
     }
 
-    public int buscarProveedores(int id, Proveedores E[]) {
+    public int buscarProveedores(int id, Proveedor E[]) {
         for (int i = 0; i < pr; i++) {
             if (id == P[i].getID()) {
                 return i;
@@ -268,7 +268,7 @@ public class VentanaProveedoresRegistrar extends javax.swing.JFrame {
         try {
             validarProveedores();
             //String Nombre, String RFC, String Correo, String Telefono,int ID
-            P[pr++] = new Proveedores(name, RFC, correo, tel, idProveedor);
+            P[pr++] = new Proveedor(name, RFC, correo, tel, idProveedor);
 
             txtID.setText("");
             txtNombre.setText("");
@@ -337,7 +337,7 @@ public class VentanaProveedoresRegistrar extends javax.swing.JFrame {
             }
         });
     }
-    private Proveedores P[] = new Proveedores[30];
+    private Proveedor P[] = new Proveedor[30];
     private int pr, ID, pos = -1;
     private String name, RFC, correo, tel;
 

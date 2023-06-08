@@ -24,7 +24,7 @@ public class VentanaProveedoresActualizar extends javax.swing.JFrame {
     /**
      * Creates new form VentanaProveedores
      */
-    public VentanaProveedoresActualizar(Proveedores proveedorUpdate) {
+    public VentanaProveedoresActualizar(Proveedor proveedorUpdate) {
         initComponents();
 
         txtID.setText(proveedorUpdate.getID() + "");
@@ -33,7 +33,7 @@ public class VentanaProveedoresActualizar extends javax.swing.JFrame {
         txtTel.setText(proveedorUpdate.getTelefono());
         txtCE.setText(proveedorUpdate.getCorreo());
 
-        P = new Proveedores(
+        P = new Proveedor(
                 txtNombre.getText(),
                 txtRFC.getText(),
                 txtCE.getText(),
@@ -201,7 +201,7 @@ public class VentanaProveedoresActualizar extends javax.swing.JFrame {
 
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        P = new Proveedores(
+        P = new Proveedor(
                 txtNombre.getText(),
                 txtRFC.getText(),
                 txtCE.getText(),
@@ -267,7 +267,7 @@ public class VentanaProveedoresActualizar extends javax.swing.JFrame {
             }
         });
     }
-    public Proveedores P = new Proveedores();
+    public Proveedor P = new Proveedor();
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

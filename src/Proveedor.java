@@ -10,14 +10,14 @@ import java.io.Serializable;
  *
  * @author orozc
  */
-public class Proveedores implements Serializable{
+public class Proveedor implements Serializable{
     private String Nombre,RFC,Correo,Telefono;
     private int ID;
 
-    public Proveedores() {
+    public Proveedor() {
     }
 
-    public Proveedores(String Nombre, String RFC, String Correo, String Telefono,int ID) {
+    public Proveedor(String Nombre, String RFC, String Correo, String Telefono,int ID) {
         this.Nombre = Nombre;
         this.RFC = RFC;
         this.Correo = Correo;

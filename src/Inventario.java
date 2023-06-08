@@ -18,7 +18,7 @@ public class Inventario implements Serializable{
     public Inventario() {
     }
 
-    public Inventario(int Existencias, int ID, String Nombre, String Proveedor, String Clasificacion) {
+    public Inventario(String Nombre, int Existencias, int ID) {
         this.Existencias = Existencias;
         this.ID = ID;
         this.Nombre = Nombre;

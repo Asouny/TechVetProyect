@@ -35,7 +35,7 @@ public class VentanaArticulosRegistrar extends javax.swing.JFrame {
     }
 
     private void leerArticulos() {
-        A = controlador.leer("Articulos", Articulos.class);
+        A = controlador.leer("Articulos", Articulo.class);
         Object R[] = new Object[10];
         for (int i = 0; i < A.length; i++) {
             if (A[i] == null) {
@@ -47,7 +47,7 @@ public class VentanaArticulosRegistrar extends javax.swing.JFrame {
         }
     }
 
-    public int buscarArticulo(int id, Articulos A[]) {
+    public int buscarArticulo(int id, Articulo A[]) {
         for (int i = 0; i < a; i++) {
             if (id == A[i].getID()) {
                 return i;
@@ -266,7 +266,7 @@ public class VentanaArticulosRegistrar extends javax.swing.JFrame {
         for (int p = 1; p < n; p++) {//pasadas
             for (int i = 0; i < n - p; i++) {
                 if (A[i].getID() > A[i + 1].getID()) {
-                    Articulos a = new Articulos();
+                    Articulo a = new Articulo();
                     a = A[i];
                     A[i] = A[i + 1];
                     A[i + 1] = a;
@@ -281,7 +281,7 @@ public class VentanaArticulosRegistrar extends javax.swing.JFrame {
             validarID();
             validarArticulos();
             //String Nombre, String Descripcion, String Proveedor, int ID, double precio
-            A[a++] = new Articulos(name, desc, prov, ID, precio);
+            A[a++] = new Articulo(name, desc, prov, ID, precio);
 
             txtID.setText("");
             txtNombre.setText("");
@@ -298,10 +298,10 @@ public class VentanaArticulosRegistrar extends javax.swing.JFrame {
 
     private void leerProveedores() {
 
-        P = (Proveedores[]) controlador.leer("Proveedores", Proveedores.class);
+        P = (Proveedor[]) controlador.leer("Proveedores", Proveedor.class);
 
         // Agregar los clientes al combo box
-        for (Proveedores proveedor : P) {
+        for (Proveedor proveedor : P) {
             if (proveedor == null) {
                 return; //si el renglon que quiere agregar está vacío, no lo agregará y no marcará error
             }
@@ -353,7 +353,7 @@ public class VentanaArticulosRegistrar extends javax.swing.JFrame {
         });
     }
 
-    private Articulos A[] = new Articulos[30];
+    private Articulo A[] = new Articulo[30];
 
     private int ID, min, max, pos = -1, a = 0, can = 0;
     private String name, desc, prov, sec, IDB;
@@ -363,7 +363,7 @@ public class VentanaArticulosRegistrar extends javax.swing.JFrame {
 
     Controller controlador = new Controller();
 
-    private Proveedores P[] = new Proveedores[30];
+    private Proveedor P[] = new Proveedor[30];
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
     private javax.swing.JLabel jLabel2;
