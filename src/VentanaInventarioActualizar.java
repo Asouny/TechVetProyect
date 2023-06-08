@@ -26,8 +26,7 @@ public class VentanaInventarioActualizar extends javax.swing.JFrame {
      */
     public VentanaInventarioActualizar(Inventario inventarioUpdate) {
         initComponents();
-
-
+        leerArticulos();
         jcbID.setSelectedIndex(inventarioUpdate.getID());
         txtExistencias.setText(inventarioUpdate.getExistencias()+"");
         jcbClasificacion.setSelectedItem(inventarioUpdate.getClasificacion());
@@ -36,6 +35,8 @@ public class VentanaInventarioActualizar extends javax.swing.JFrame {
                 jcbID.getSelectedIndex(),
                 jcbClasificacion.getSelectedIndex()
         );
+        this.setLocationRelativeTo(null);
+
     }
 
     /**
@@ -146,6 +147,29 @@ public class VentanaInventarioActualizar extends javax.swing.JFrame {
        this.dispose();
     }//GEN-LAST:event_btnAgregarActionPerformed
 
+    private void leerArticulos() {
+        try {
+            FileInputStream flujoBytes = new FileInputStream("ARTICULOS.VET"); //flujo de Bytes
+            ObjectInputStream fce = new ObjectInputStream(flujoBytes); //flujo de objetos
+            A = (Articulo[]) fce.readObject();
+
+            // Agregar los clientes al combo box
+            for (Articulo articulos : A) {
+                if (articulos == null) {
+                    return; //si el renglon que quiere agregar está vacío, no lo agregará y no marcará error
+                }
+                String item = articulos.getID()+"";
+                jcbID.addItem(item);
+            }
+
+        } catch (FileNotFoundException ex) {
+            showMessageDialog(this, "Error el archivo no se encontro");
+        } catch (IOException ex) {
+            showMessageDialog(this, "Error");
+        } catch (ClassNotFoundException ex) {
+            showMessageDialog(this, "Error");
+        }
+    }
 
     /**
      * @param args the command line arguments
@@ -182,8 +206,7 @@ public class VentanaInventarioActualizar extends javax.swing.JFrame {
         });
     }
     public Inventario I = new Inventario();
-
-
+    private Articulo A[] = new Articulo[30];
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
     private javax.swing.JLabel jLabel2;

@@ -28,6 +28,7 @@ public class VentanaInventarioRegistrar extends javax.swing.JFrame {
         initComponents();
         leerArticulos();
         leerInventario();
+        this.setLocationRelativeTo(null);
     }
 
     private void leerInventario(){
@@ -49,7 +50,7 @@ public class VentanaInventarioRegistrar extends javax.swing.JFrame {
     }
     private void leerArticulos() {
         try {
-            FileInputStream flujoBytes = new FileInputStream("ARTICULOS.VET"); //flujo de Bytes
+            FileInputStream flujoBytes = new FileInputStream("Articulos.obj"); //flujo de Bytes
             ObjectInputStream fce = new ObjectInputStream(flujoBytes); //flujo de objetos
             A = (Articulo[]) fce.readObject();
 
@@ -60,8 +61,6 @@ public class VentanaInventarioRegistrar extends javax.swing.JFrame {
                 }
                 String item = articulos.getID()+"";
                 jcbID.addItem(item);
-                name=articulos.getNombre();
-                prov=articulos.getProveedor();
             }
 
         } catch (FileNotFoundException ex) {
