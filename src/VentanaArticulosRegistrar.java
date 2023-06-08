@@ -36,7 +36,7 @@ public class VentanaArticulosRegistrar extends javax.swing.JFrame {
 
     private void leerArticulos() {
         A = controlador.leer("Articulos", Articulo.class);
-        Object R[] = new Object[10];
+        Object R[] = new Object[4];
         for (int i = 0; i < A.length; i++) {
             if (A[i] == null) {
                 return;

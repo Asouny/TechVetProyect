@@ -178,7 +178,9 @@ public class VentanaTratamiento extends javax.swing.JFrame {
         });
     }
     private DefaultTableModel m;
-    
+    int t=0;
+    private Tratamiento T[] = new Tratamiento[30];
+    Controller controlador = new Controller();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private com.toedter.calendar.JDateChooser jDateChooser1;
