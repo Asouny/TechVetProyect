@@ -58,6 +58,9 @@ public class PrincipalPage extends javax.swing.JFrame {
         jMenu9 = new javax.swing.JMenu();
         jMenuItem13 = new javax.swing.JMenuItem();
         jMenuItem14 = new javax.swing.JMenuItem();
+        jMenu10 = new javax.swing.JMenu();
+        jMenuItem19 = new javax.swing.JMenuItem();
+        jMenuItem20 = new javax.swing.JMenuItem();
 
         jMenuItem2.setText("jMenuItem2");
 
@@ -219,7 +222,13 @@ public class PrincipalPage extends javax.swing.JFrame {
         jMenuBar1.add(jMenu6);
 
         jMenu9.setText("Tratamientos");
+        jMenu9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu9ActionPerformed(evt);
+            }
+        });
 
+        jMenuItem13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/PrincipalPageComponent/src/mascotas.png"))); // NOI18N
         jMenuItem13.setText("Generar tratamiento");
         jMenuItem13.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -228,6 +237,7 @@ public class PrincipalPage extends javax.swing.JFrame {
         });
         jMenu9.add(jMenuItem13);
 
+        jMenuItem14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/PrincipalPageComponent/src/perro (1).png"))); // NOI18N
         jMenuItem14.setText("Catálogo de tratamiento");
         jMenuItem14.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -237,6 +247,26 @@ public class PrincipalPage extends javax.swing.JFrame {
         jMenu9.add(jMenuItem14);
 
         jMenuBar1.add(jMenu9);
+
+        jMenu10.setText("Diagnosticos");
+
+        jMenuItem19.setText("Registrar diagnostico");
+        jMenuItem19.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem19ActionPerformed(evt);
+            }
+        });
+        jMenu10.add(jMenuItem19);
+
+        jMenuItem20.setText("Catalogo de diagnosticos");
+        jMenuItem20.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem20ActionPerformed(evt);
+            }
+        });
+        jMenu10.add(jMenuItem20);
+
+        jMenuBar1.add(jMenu10);
 
         setJMenuBar(jMenuBar1);
 
@@ -307,16 +337,6 @@ frame1.setVisible(true);
         frame1.setVisible(true);
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
-    private void jMenuItem13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem13ActionPerformed
-        VentanaTratamientoRegistrar frame1 = new VentanaTratamientoRegistrar();
-        frame1.setVisible(true);
-    }//GEN-LAST:event_jMenuItem13ActionPerformed
-
-    private void jMenuItem14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem14ActionPerformed
-        VentanaTratamientoCatalogo frame1 = new VentanaTratamientoCatalogo();
-        frame1.setVisible(true);
-    }//GEN-LAST:event_jMenuItem14ActionPerformed
-
     private void jMenuItem12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem12ActionPerformed
         VentanaPagoCatalogo frame = new VentanaPagoCatalogo();
         frame.setVisible(true);
@@ -337,6 +357,33 @@ frame1.setVisible(true);
         frame.setVisible(true);
     }//GEN-LAST:event_jMenuItem17ActionPerformed
 
+    private void jMenu9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu9ActionPerformed
+        VentanaDiagnosticoRegistrar1 frame = new VentanaDiagnosticoRegistrar1();
+        frame.setVisible(true);
+    }//GEN-LAST:event_jMenu9ActionPerformed
+
+    private void jMenuItem14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem14ActionPerformed
+        VentanaTratamientoCatalogo frame1 = new VentanaTratamientoCatalogo();
+        frame1.setVisible(true);
+    }//GEN-LAST:event_jMenuItem14ActionPerformed
+
+    private void jMenuItem13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem13ActionPerformed
+        VentanaTratamientoRegistrar frame1 = new VentanaTratamientoRegistrar();
+        frame1.setVisible(true);
+    }//GEN-LAST:event_jMenuItem13ActionPerformed
+
+    private void jMenuItem19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem19ActionPerformed
+        VentanaDiagnosticoRegistrar1 frame1 = new VentanaDiagnosticoRegistrar1();
+        frame1.setVisible(true);
+    }//GEN-LAST:event_jMenuItem19ActionPerformed
+
+    private void jMenuItem20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem20ActionPerformed
+        VentanaDiagnosticoCatalogo frame1 = new VentanaDiagnosticoCatalogo();
+        frame1.setVisible(true);
+    }//GEN-LAST:event_jMenuItem20ActionPerformed
+
+   
+    
     /**
      * @param args the command line arguments
      */
@@ -378,6 +425,7 @@ frame1.setVisible(true);
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu10;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
@@ -399,7 +447,9 @@ frame1.setVisible(true);
     private javax.swing.JMenuItem jMenuItem16;
     private javax.swing.JMenuItem jMenuItem17;
     private javax.swing.JMenuItem jMenuItem18;
+    private javax.swing.JMenuItem jMenuItem19;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem20;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
